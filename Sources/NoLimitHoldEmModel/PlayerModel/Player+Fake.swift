@@ -5,7 +5,7 @@ extension Player {
         id: String = UUID().uuidString,
         name: String = Lorem.firstName,
         chipCount: Decimal = .init(
-            integerLiteral: Bool.random(withProbability: 0.9) ? .random(in: 1...20) * 100 : .zero
+            integerLiteral: BoolExtensions.random(withProbability: 0.9) ? .random(in: 1...20) * 100 : .zero
         ),
         imageURL: URL? = .randomImageURL
     ) -> Player {
