@@ -121,8 +121,4 @@ extension Decimal {
     public var double: Double {
         NSDecimalNumber(decimal: self).doubleValue
     }
-    
-    public static func random(in range: ClosedRange<Double>) -> Decimal {
-        .init(floatLiteral: .random(in: range))
-    }
 }
