@@ -66,7 +66,6 @@ extension NoLimitHoldEmHand {
             .fake(),
             .fake(),
             .fake(),
-            .fake(),
         ],
         deck: Deck? = nil
     ) throws -> NoLimitHoldEmHand {

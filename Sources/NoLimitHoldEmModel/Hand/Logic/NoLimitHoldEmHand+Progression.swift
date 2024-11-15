@@ -2,7 +2,7 @@ import Foundation
 
 // MARK: - Progressing Rounds
 extension NoLimitHoldEmHand {
-    private mutating func progressRoundIfReady() {
+    public mutating func progressRoundIfReady() {
         guard isReadyForNextRound else {
             return
         }
