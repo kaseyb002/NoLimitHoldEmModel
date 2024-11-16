@@ -1,0 +1,446 @@
+{
+    "pots": [
+      {
+        "is_full": false,
+        "player_ids": [
+          "2",
+          "1"
+        ],
+        "id": "68D88B8B-98E1-49B8-B764-0512E4476A1C",
+        "amount": 0.2
+      }
+    ],
+    "pot_winners": [
+      {
+        "winning_hands": [
+          {
+            "poker_hand": {
+              "top_rank": {
+                "one_pair": {
+                  "_0": {
+                    "pair_card": {
+                      "suit": "s",
+                      "rank": "t"
+                    },
+                    "remainder": [
+                      {
+                        "rank": "a",
+                        "suit": "s"
+                      },
+                      {
+                        "suit": "d",
+                        "rank": "k"
+                      },
+                      {
+                        "suit": "d",
+                        "rank": "q"
+                      }
+                    ]
+                  }
+                }
+              },
+              "description": "Pair: 10♠️ 10❤️ Q♦️ K♦️ A♠️",
+              "cards": [
+                {
+                  "rank": "t",
+                  "suit": "s"
+                },
+                {
+                  "suit": "h",
+                  "rank": "t"
+                },
+                {
+                  "rank": "q",
+                  "suit": "d"
+                },
+                {
+                  "suit": "d",
+                  "rank": "k"
+                },
+                {
+                  "rank": "a",
+                  "suit": "s"
+                }
+              ]
+            },
+            "player_id": "1"
+          }
+        ],
+        "pot": {
+          "amount": 0.2,
+          "is_full": false,
+          "id": "68D88B8B-98E1-49B8-B764-0512E4476A1C",
+          "player_ids": [
+            "2",
+            "1"
+          ]
+        }
+      }
+    ],
+    "player_hands": [
+      {
+        "starting_chip_count": 10.05,
+        "has_moved_this_round": false,
+        "current_bet": 0,
+        "status": "in",
+        "player": {
+          "chip_count": 9.95,
+          "name": "turner",
+          "id": "2"
+        },
+        "pocket_cards": {
+          "second": {
+            "rank": "a",
+            "suit": "h"
+          },
+          "first": {
+            "suit": "d",
+            "rank": "9"
+          }
+        }
+      },
+      {
+        "starting_chip_count": 9.95,
+        "has_moved_this_round": false,
+        "current_bet": 0,
+        "pocket_cards": {
+          "second": {
+            "suit": "h",
+            "rank": "t"
+          },
+          "first": {
+            "rank": "a",
+            "suit": "s"
+          }
+        },
+        "player": {
+          "chip_count": 10.05,
+          "name": "kasey",
+          "id": "1"
+        },
+        "status": "in"
+      }
+    ],
+    "id": "4FF75113-E11E-4134-B403-3A27652C82F0",
+    "started": "2024-11-15T00:37:07Z",
+    "log": {
+      "actions": {
+        "flop_actions": [
+          {
+            "player_id": "2",
+            "timestamp": "2024-11-15T00:37:13Z",
+            "decision": {
+              "check": {}
+            }
+          },
+          {
+            "decision": {
+              "check": {}
+            },
+            "player_id": "1",
+            "timestamp": "2024-11-15T00:37:16Z"
+          }
+        ],
+        "turn_actions": [
+          {
+            "timestamp": "2024-11-15T00:37:17Z",
+            "player_id": "2",
+            "decision": {
+              "check": {}
+            }
+          },
+          {
+            "decision": {
+              "check": {}
+            },
+            "timestamp": "2024-11-15T00:37:20Z",
+            "player_id": "1"
+          }
+        ],
+        "preflop_actions": [
+          {
+            "player_id": "2",
+            "timestamp": "2024-11-15T00:37:07Z",
+            "decision": {
+              "post_small_blind": {
+                "amount": 0.05
+              }
+            }
+          },
+          {
+            "timestamp": "2024-11-15T00:37:07Z",
+            "decision": {
+              "post_big_blind": {
+                "amount": 0.1
+              }
+            },
+            "player_id": "1"
+          },
+          {
+            "decision": {
+              "bet": {
+                "is_all_in": false,
+                "amount": 0.05
+              }
+            },
+            "timestamp": "2024-11-15T00:37:10Z",
+            "player_id": "2"
+          },
+          {
+            "timestamp": "2024-11-15T00:37:12Z",
+            "player_id": "1",
+            "decision": {
+              "check": {}
+            }
+          }
+        ],
+        "river_actions": [
+          {
+            "decision": {
+              "check": {}
+            },
+            "player_id": "2",
+            "timestamp": "2024-11-15T00:37:22Z"
+          },
+          {
+            "player_id": "1",
+            "timestamp": "2024-11-15T02:43:07Z",
+            "decision": {
+              "check": {}
+            }
+          }
+        ]
+      },
+      "board": [
+        {
+          "rank": "q",
+          "suit": "d"
+        },
+        {
+          "rank": "k",
+          "suit": "d"
+        },
+        {
+          "rank": "3",
+          "suit": "h"
+        },
+        {
+          "suit": "s",
+          "rank": "7"
+        },
+        {
+          "suit": "s",
+          "rank": "t"
+        }
+      ],
+      "results": {
+        "end_player_hands": [
+          {
+            "pocket_cards": {
+              "first": {
+                "rank": "9",
+                "suit": "d"
+              },
+              "second": {
+                "suit": "h",
+                "rank": "a"
+              }
+            },
+            "player": {
+              "id": "2",
+              "name": "turner",
+              "chip_count": 9.95
+            },
+            "starting_chip_count": 10.05,
+            "has_moved_this_round": false,
+            "current_bet": 0,
+            "status": "in"
+          },
+          {
+            "starting_chip_count": 9.95,
+            "current_bet": 0,
+            "status": "in",
+            "player": {
+              "id": "1",
+              "name": "kasey",
+              "chip_count": 10.05
+            },
+            "has_moved_this_round": false,
+            "pocket_cards": {
+              "first": {
+                "rank": "a",
+                "suit": "s"
+              },
+              "second": {
+                "rank": "t",
+                "suit": "h"
+              }
+            }
+          }
+        ],
+        "pots": [
+          {
+            "is_full": false,
+            "player_ids": [
+              "2",
+              "1"
+            ],
+            "amount": 0.2,
+            "id": "68D88B8B-98E1-49B8-B764-0512E4476A1C"
+          }
+        ],
+        "ended": "2024-11-15T02:43:07Z",
+        "pot_winners": [
+          {
+            "pot": {
+              "id": "68D88B8B-98E1-49B8-B764-0512E4476A1C",
+              "amount": 0.2,
+              "player_ids": [
+                "2",
+                "1"
+              ],
+              "is_full": false
+            },
+            "winning_hands": [
+              {
+                "poker_hand": {
+                  "cards": [
+                    {
+                      "suit": "s",
+                      "rank": "t"
+                    },
+                    {
+                      "rank": "t",
+                      "suit": "h"
+                    },
+                    {
+                      "rank": "q",
+                      "suit": "d"
+                    },
+                    {
+                      "suit": "d",
+                      "rank": "k"
+                    },
+                    {
+                      "suit": "s",
+                      "rank": "a"
+                    }
+                  ],
+                  "top_rank": {
+                    "one_pair": {
+                      "_0": {
+                        "pair_card": {
+                          "suit": "s",
+                          "rank": "t"
+                        },
+                        "remainder": [
+                          {
+                            "rank": "a",
+                            "suit": "s"
+                          },
+                          {
+                            "rank": "k",
+                            "suit": "d"
+                          },
+                          {
+                            "rank": "q",
+                            "suit": "d"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "description": "Pair: 10♠️ 10❤️ Q♦️ K♦️ A♠️"
+                },
+                "player_id": "1"
+              }
+            ]
+          }
+        ]
+      },
+      "starting_player_hands": [
+        {
+          "has_moved_this_round": false,
+          "player": {
+            "chip_count": 10.05,
+            "name": "turner",
+            "id": "2"
+          },
+          "current_bet": 0,
+          "status": "in",
+          "pocket_cards": {
+            "second": {
+              "suit": "h",
+              "rank": "a"
+            },
+            "first": {
+              "rank": "9",
+              "suit": "d"
+            }
+          },
+          "starting_chip_count": 10.05
+        },
+        {
+          "current_bet": 0,
+          "status": "in",
+          "pocket_cards": {
+            "first": {
+              "rank": "a",
+              "suit": "s"
+            },
+            "second": {
+              "rank": "t",
+              "suit": "h"
+            }
+          },
+          "starting_chip_count": 9.95,
+          "has_moved_this_round": false,
+          "player": {
+            "name": "kasey",
+            "chip_count": 9.95,
+            "id": "1"
+          }
+        }
+      ],
+      "started": "2024-11-15T00:37:07Z",
+      "hand_id": "4FF75113-E11E-4134-B403-3A27652C82F0",
+      "blinds": {
+        "small_blind": 0.05,
+        "big_blind": 0.1
+      }
+    },
+    "ended": "2024-11-15T02:43:07Z",
+    "auto_progress": {
+      "auto_move_to_next_round": true
+    },
+    "board": [
+      {
+        "rank": "q",
+        "suit": "d"
+      },
+      {
+        "suit": "d",
+        "rank": "k"
+      },
+      {
+        "rank": "3",
+        "suit": "h"
+      },
+      {
+        "suit": "s",
+        "rank": "7"
+      },
+      {
+        "suit": "s",
+        "rank": "t"
+      }
+    ],
+    "state": {
+      "hand_complete": {}
+    },
+    "blinds": {
+      "big_blind": 0.1,
+      "small_blind": 0.05
+    },
+    "round": 3
+}

@@ -24,7 +24,10 @@ let package = Package(
             name: "NoLimitHoldEmModel"),
         .testTarget(
             name: "NoLimitHoldEmModelTests",
-            dependencies: ["NoLimitHoldEmModel"]
+            dependencies: ["NoLimitHoldEmModel"],
+            resources: [
+                .process("Resources") // Include a directory named "Resources" in your test target
+            ]
         ),
     ]
 )

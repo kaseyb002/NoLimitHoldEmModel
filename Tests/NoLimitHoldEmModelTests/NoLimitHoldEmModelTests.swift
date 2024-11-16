@@ -543,6 +543,32 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         
         print(hand.log.debugDescription)
     }
+    
+    func testParseHandJSON() throws {
+        let data: Data = try loadJSON(fromFile: "hand")
+        let decoder: JSONDecoder = .init()
+        decoder.dateDecodingStrategy = .iso8601
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let hand: NoLimitHoldEmHand = try decoder.decode(
+            NoLimitHoldEmHand.self,
+            from: data
+        )
+        print(hand.log.actions)
+    }
+    
+    private func loadJSON(fromFile name: String) throws -> Data {
+        guard let url: URL = Bundle.module.url(forResource: "hand", withExtension: "json") else {
+            throw FileError.jsonFileNotFound(name: name)
+        }
+        return try Data(
+            contentsOf: url,
+            options: .mappedIfSafe
+        )
+    }
+    
+    private enum FileError: Error {
+        case jsonFileNotFound(name: String)
+    }
 }
 
 extension NoLimitHoldEmHand {

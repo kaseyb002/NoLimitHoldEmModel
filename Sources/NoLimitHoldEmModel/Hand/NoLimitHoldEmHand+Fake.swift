@@ -69,10 +69,24 @@ extension NoLimitHoldEmHand {
         ],
         deck: Deck? = nil
     ) throws -> NoLimitHoldEmHand {
-        try .init(
+        var hand: NoLimitHoldEmHand = try .init(
             blinds: blinds,
             players: players.filter({ $0.chipCount > .zero }),
             cookedDeck: nil
         )
+        
+        try? hand.postSmallBlind()
+        try? hand.postBigBlind()
+
+        let moveCount: Int = Int.random(in: 1 ... 25)
+        
+        for _ in 0 ... moveCount {
+            hand = AI.makeAIMoveIfNeeded(
+                in: hand,
+                autoAdvance: false
+            )
+        }
+        
+        return hand
     }
 }
