@@ -63,27 +63,27 @@ extension Decimal {
     /// e.g.,  $1.23M, $234.56K, $567.89
     public var moneyString: String {
         if self == .zero {
-            return Self.moneyFormatter.string(from: NSDecimalNumber(decimal: self)) ?? ""
+            return Self.moneyFormatter.string(for: self) ?? ""//string(for: self)) ?? ""
         }
         
         var formattedString: String
         if self >= 1_000_000_000_000_000 {
             let quadrillionsAmount: Decimal = self / 1_000_000_000_000_000
-            formattedString = Self.quadrillionsFormatter.string(from: NSDecimalNumber(decimal: quadrillionsAmount)) ?? ""
+            formattedString = Self.quadrillionsFormatter.string(for: quadrillionsAmount) ?? ""
         } else if self >= 1_000_000_000_000 {
             let trillionsAmount: Decimal = self / 1_000_000_000_000
-            formattedString = Self.trillionsFormatter.string(from: NSDecimalNumber(decimal: trillionsAmount)) ?? ""
+            formattedString = Self.trillionsFormatter.string(for: trillionsAmount) ?? ""
         } else if self >= 1_000_000_000 {
             let billionsAmount: Decimal = self / 1_000_000_000
-            formattedString = Self.billionsFormatter.string(from: NSDecimalNumber(decimal: billionsAmount)) ?? ""
+            formattedString = Self.billionsFormatter.string(for: billionsAmount) ?? ""
         } else if self >= 1_000_000 {
             let millionsAmount: Decimal = self / 1_000_000
-            formattedString = Self.millionsFormatter.string(from: NSDecimalNumber(decimal: millionsAmount)) ?? ""
+            formattedString = Self.millionsFormatter.string(for: millionsAmount) ?? ""
         } else if self >= 1_000 {
             let thousandsAmount: Decimal = self / 1_000
-            formattedString = Self.thousandsFormatter.string(from: NSDecimalNumber(decimal: thousandsAmount)) ?? ""
+            formattedString = Self.thousandsFormatter.string(for: thousandsAmount) ?? ""
         } else {
-            formattedString = Self.moneyFormatter.string(from: NSDecimalNumber(decimal: self)) ?? ""
+            formattedString = Self.moneyFormatter.string(for: self) ?? ""
         }
         
         if formattedString.hasSuffix(".00") {
@@ -105,7 +105,7 @@ extension Decimal {
     
     /// e.g.,  $1,234,567.89
     public var exactAmountString: String {
-        Self.moneyFormatter.string(from: NSDecimalNumber(decimal: self)) ?? ""
+        Self.moneyFormatter.string(for: self) ?? ""
     }
     
     private static let amountFormatter = {
@@ -113,12 +113,4 @@ extension Decimal {
         formatter.maximumFractionDigits = .zero
         return formatter
     }()
-    
-    public var float: Float {
-        NSDecimalNumber(decimal: self).floatValue
-    }
-    
-    public var double: Double {
-        NSDecimalNumber(decimal: self).doubleValue
-    }
 }

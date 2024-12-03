@@ -78,7 +78,7 @@ extension NoLimitHoldEmHand {
         try? hand.postSmallBlind()
         try? hand.postBigBlind()
 
-        let moveCount: Int = Int.random(in: 1 ... 25)
+        let moveCount: Int = .random(in: 1 ... 25)
         
         for _ in 0 ... moveCount {
             hand = AI.makeAIMoveIfNeeded(

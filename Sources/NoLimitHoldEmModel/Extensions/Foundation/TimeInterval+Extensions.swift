@@ -1,18 +1,6 @@
 import Foundation
 
 extension TimeInterval {
-    
-    public var stopwatchFormat: String {
-        let time = NSInteger(self)
-        
-        let ms = Int((self.truncatingRemainder(dividingBy: 1)) * 1000)
-        let seconds = time % 60
-        let minutes = (time / 60) % 60
-        let hours = (time / 3600)
-        
-        return String(format: "%0.2d:%0.2d:%0.2d.%0.2d",hours,minutes,seconds,ms)
-    }
-    
     /// e.g., 2h 20m
     public var hrsAndMinFormat: String {
         let oneHour: TimeInterval = 60 * 60
@@ -121,29 +109,11 @@ extension TimeInterval {
         return Int(self / 60)
     }
     
-    public var nsNumber: NSNumber {
-        NSNumber(value: self)
-    }
-    
     public static var oneHour: TimeInterval {
         60 * 60
     }
     
     public var nanoSeconds: UInt64 {
         UInt64(self * 1_000_000_000)
-    }
-}
-
-private extension TimeInterval {
-    var units: NSCalendar.Unit {
-        if self < 60 * 60 {
-            return [.minute, .second]
-        }
-        
-        if self < 60 * 60 * 24 {
-            return [.hour, .minute]
-        }
-        
-        return [.day, .hour]
     }
 }

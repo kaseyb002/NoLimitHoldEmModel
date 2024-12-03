@@ -57,17 +57,6 @@ extension String {
         return prefix + finalSuffix + "..."
     }
     
-    public func findMentionText() -> [String] {
-        var arr_hasStrings:[String] = []
-        let regex = try? NSRegularExpression(pattern: "(#[a-zA-Z0-9_\\p{Arabic}\\p{N}]*)", options: [])
-        if let matches = regex?.matches(in: self, options:[], range:NSMakeRange(0, self.count)) {
-            for match in matches {
-                arr_hasStrings.append(NSString(string: self).substring(with: NSRange(location:match.range.location, length: match.range.length )))
-            }
-        }
-        return arr_hasStrings
-    }
-    
     public var asJson: Any? {
         guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }
         return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
@@ -91,37 +80,6 @@ extension String {
             options: .regularExpression,
             range: nil
         )
-    }
-    
-    public var containedEmailAddress: [String] {
-        func extractEmailAddresses(from string: String) -> [String] {
-            let pattern = #"([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})"#
-            
-            do {
-                let regex = try NSRegularExpression(pattern: pattern, options: [])
-                let range = NSRange(location: 0, length: string.utf16.count)
-                
-                let matches = regex.matches(in: string, options: [], range: range)
-                
-                return matches.map { match in
-                    let nsString = NSString(string: string)
-                    return nsString.substring(with: match.range)
-                }
-            } catch {
-                print("Error creating regex: \(error)")
-                return []
-            }
-        }
-
-        return extractEmailAddresses(from: self)
-    }
-    
-    public var hasTagStrings: Bool {
-        guard let regex = try? NSRegularExpression(pattern: "<.*>", options: []) else {
-            return false
-        }
-        let matches = regex.matches(in: self, options:[], range: NSMakeRange(0, count))
-        return matches.isEmpty == false
     }
     
     public var trailingQuestionMarkRemoved: String {
