@@ -166,7 +166,7 @@ extension NoLimitHoldEmHand {
         else {
             return false
         }
-        return maxOutstandingBet > .zero && currentPlayerHand.currentBet <= maxOutstandingBet
+        return maxOutstandingBet > .zero && currentPlayerHand.currentBet < maxOutstandingBet
     }
     
     public func isCurrentPlayerAndCanBet(playerID: String) -> Bool {
