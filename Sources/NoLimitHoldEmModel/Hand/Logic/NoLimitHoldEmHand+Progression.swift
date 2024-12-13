@@ -29,6 +29,7 @@ extension NoLimitHoldEmHand {
             .count
         if activePlayersNotAllInCount <= 1 {
             collectBets()
+            round = .river
             completeHand()
         } else {
             resetPlayersHaveMoved()
