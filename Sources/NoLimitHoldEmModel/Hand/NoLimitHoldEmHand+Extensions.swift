@@ -72,11 +72,21 @@ extension NoLimitHoldEmHand {
         guard let currentPlayerHand else {
             return .zero
         }
-        let minRaise: Decimal = maxOutstandingBet * 2
-        if currentPlayerHand.player.chipCount < minRaise {
-            return currentPlayerHand.player.chipCount
-        }
-        return minRaise
+        var minRaise: Decimal = maxOutstandingBet
+        let previousRaise: Decimal = max(
+            allBets.sorted(by: >).dropFirst().first ?? .zero,
+            blinds.bigBlind
+        )
+        minRaise += previousRaise
+        minRaise -= currentPlayerHand.currentBet
+        return min(
+            minRaise,
+            currentPlayerHand.player.chipCount
+        )
+    }
+    
+    private var allBets: [Decimal] {
+        playerHands.map { $0.currentBet }
     }
     
     public var maxBetForCurrentPlayer: Decimal {
