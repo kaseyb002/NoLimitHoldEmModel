@@ -564,8 +564,25 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         try hand.check()
         try hand.bet(amount: 0.20)
         try hand.bet(amount: 0.50)
-        try hand.bet(amount: 0.80)
-        XCTAssert(hand.minBetForCurrentPlayer == 0.60)
+        print(hand.minRaiseForCurrentPlayer)
+        print(hand.minBetForCurrentPlayer)
+        try hand.bet(amount: 1)
+        XCTAssert(hand.minBetForCurrentPlayer == 0.80)
+        XCTAssert(hand.minRaiseForCurrentPlayer == 1.80)
+    }
+    
+    func testMinBet2() throws {
+        var hand: NoLimitHoldEmHand = try .fake(
+            blinds: .init(0.05, 0.10),
+            players: [
+                .fake(chipCount: 10),
+                .fake(chipCount: 10),
+            ]
+        )
+        try hand.postSmallBlind()
+        try hand.postBigBlind()
+        try hand.bet(amount: 0.25)
+        try hand.bet(amount: 2)
     }
     
     func testParseHandJSON() throws {

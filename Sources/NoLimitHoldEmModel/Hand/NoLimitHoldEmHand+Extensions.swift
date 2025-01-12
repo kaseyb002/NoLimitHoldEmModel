@@ -74,7 +74,7 @@ extension NoLimitHoldEmHand {
         }
         var minRaise: Decimal = maxOutstandingBet
         let previousRaise: Decimal = max(
-            allBets.sorted(by: >).dropFirst().first ?? .zero,
+            allBets.sorted(by: >).first ?? .zero,
             blinds.bigBlind
         )
         minRaise += previousRaise
