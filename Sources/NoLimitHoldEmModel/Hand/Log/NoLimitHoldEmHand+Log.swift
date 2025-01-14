@@ -59,6 +59,7 @@ extension NoLimitHoldEmHand {
                 case check
                 case bet(amount: Decimal, isAllIn: Bool)
                 case call(amount: Decimal, isAllIn: Bool)
+                case show(cards: ShowCards)
             }
             
             public init(

@@ -110,7 +110,10 @@ extension NoLimitHoldEmHand.Log {
     }
     
     private func debugDescription(for action: NoLimitHoldEmHand.Log.PlayerAction) -> String {
-        var string: String = playerHand(byID: action.playerID)?.player.name ?? action.playerID
+        guard let playerHand: PlayerHand = playerHand(byID: action.playerID) else {
+            return "Player not found"
+        }
+        var string: String = playerHand.player.name
         
         switch action.decision {
         case let .postSmallBlind(amount):
@@ -137,6 +140,18 @@ extension NoLimitHoldEmHand.Log {
                 string += " is all in for \(amount.moneyString)."
             } else {
                 string += " calls \(amount.moneyString)."
+            }
+            
+        case .show(let showCards):
+            switch showCards {
+            case .first:
+                string += " showed \(playerHand.pocketCards.first.debugDescription)."
+                
+            case .second:
+                string += " showed \(playerHand.pocketCards.second.debugDescription)."
+
+            case .both:
+                string += " showed \(playerHand.pocketCards.debugDescription)."
             }
         }
         
