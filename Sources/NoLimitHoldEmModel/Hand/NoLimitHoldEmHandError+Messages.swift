@@ -33,7 +33,7 @@ extension NoLimitHoldEmHandError {
         case .playerIDNotFound:
             "Player is not in the hand."
             
-        case .playerNotInHand:
+        case .playerHasFolded:
             "Player has folded."
         }
     }
