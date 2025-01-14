@@ -5,6 +5,7 @@ extension PlayerHand {
         pocketCards: PocketCards = .fake(),
         player: Player = .fake(),
         currentBet: Decimal = .init(integerLiteral: Bool.random() ? .zero : .random(in: 1...12) * 25),
+        showCards: ShowCards? = nil,
         status: Status = Bool.random() ? .in : .out
     ) -> PlayerHand {
         var validStatus: Status = status
@@ -15,6 +16,7 @@ extension PlayerHand {
             pocketCards: pocketCards,
             player: player,
             currentBet: validStatus == .out ? .zero : currentBet,
+            showCards: showCards,
             status: validStatus
         )
     }

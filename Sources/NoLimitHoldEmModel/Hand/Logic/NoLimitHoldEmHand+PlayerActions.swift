@@ -136,6 +136,19 @@ extension NoLimitHoldEmHand {
         
         moveToNextState()
     }
+    
+    public mutating func showCards(
+        playerID: String,
+        showCards: ShowCards
+    ) throws {
+        guard var playerHandIndex: Int = playerHands.firstIndex(where: { $0.player.id == playerID }) else {
+            throw NoLimitHoldEmHandError.playerIDNotFound
+        }
+        guard playerHands[playerHandIndex].status == .in else {
+            throw NoLimitHoldEmHandError.playerNotInHand
+        }
+        playerHands[playerHandIndex].showCards = showCards
+    }
 }
 
 // MARK: - Logging Helper

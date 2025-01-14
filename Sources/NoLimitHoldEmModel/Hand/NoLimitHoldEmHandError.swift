@@ -10,4 +10,6 @@ public enum NoLimitHoldEmHandError: Error {
     case triedToFoldWhenThereIsNoBet
     case triedToCheckWhenThereIsABet
     case attemptedToActWithNoCurrentPlayer
+    case playerIDNotFound
+    case playerNotInHand
 }
