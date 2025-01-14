@@ -148,6 +148,10 @@ extension NoLimitHoldEmHand {
             throw NoLimitHoldEmHandError.playerHasFolded
         }
         playerHands[playerHandIndex].showCards = showCards
+        logDecision(
+            .show(cards: showCards),
+            playerHand: playerHands[playerHandIndex]
+        )
     }
 }
 

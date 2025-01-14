@@ -109,7 +109,7 @@ extension NoLimitHoldEmHand.Log {
         }
     }
     
-    private func debugDescription(for action: NoLimitHoldEmHand.Log.PlayerAction) -> String {
+    public func debugDescription(for action: NoLimitHoldEmHand.Log.PlayerAction) -> String {
         guard let playerHand: PlayerHand = playerHand(byID: action.playerID) else {
             return "Player not found"
         }
