@@ -11,5 +11,5 @@ public enum NoLimitHoldEmHandError: Error {
     case triedToCheckWhenThereIsABet
     case attemptedToActWithNoCurrentPlayer
     case playerIDNotFound
-    case playerNotInHand
+    case playerHasFolded
 }

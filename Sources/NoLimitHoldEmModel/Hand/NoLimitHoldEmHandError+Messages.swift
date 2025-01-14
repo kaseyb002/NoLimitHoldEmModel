@@ -29,6 +29,12 @@ extension NoLimitHoldEmHandError {
             
         case .attemptedToActWithNoCurrentPlayer:
             "No current player."
+            
+        case .playerIDNotFound:
+            "Player is not in the hand."
+            
+        case .playerNotInHand:
+            "Player has folded."
         }
     }
 }
