@@ -62,7 +62,7 @@ extension NoLimitHoldEmHand {
             }
         }
         
-        let didCall: Bool = amount == maxOutstandingBet
+        let didCall: Bool = amount == maxOutstandingBet - playerHands[currentPlayerHandIndex].currentBet
         playerHands[currentPlayerHandIndex].currentBet += validBet
         playerHands[currentPlayerHandIndex].player.chipCount -= validBet
         playerHands[currentPlayerHandIndex].hasMovedThisRound = true
