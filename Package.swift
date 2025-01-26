@@ -26,7 +26,7 @@ let package = Package(
             name: "NoLimitHoldEmModelTests",
             dependencies: ["NoLimitHoldEmModel"],
             resources: [
-                .process("Resources") // Include a directory named "Resources" in your test target
+                .process("Resources")
             ]
         ),
     ]
