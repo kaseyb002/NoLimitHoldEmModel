@@ -189,7 +189,9 @@ extension NoLimitHoldEmHand {
     }
     
     public var isReadyForDramaticReveal: Bool {
-        guard round < .river else {
+        guard round < .river,
+              state == .waitingToProgressToNextRound
+        else {
             return false
         }
         return activePlayersNotAllInCount <= 1 && activePlayerHands.count > 1
