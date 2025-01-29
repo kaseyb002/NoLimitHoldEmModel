@@ -59,7 +59,7 @@ extension NoLimitHoldEmHand {
             }
             
         case .waitingToProgressToNextRound:
-            if autoProgress.autoMoveToNextRound {
+            if autoProgress.autoMoveToNextRound && isReadyForDramaticReveal == false {
                 progressRoundIfReady()
             }
             
