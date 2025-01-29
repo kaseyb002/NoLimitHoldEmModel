@@ -187,6 +187,19 @@ extension NoLimitHoldEmHand {
         }
         return currentPlayerHand.player.chipCount > maxOutstandingBet
     }
+    
+    public var isReadyForDramaticReveal: Bool {
+        guard round < .river else {
+            return false
+        }
+        return activePlayersNotAllInCount <= 1 && activePlayerHands.count > 1
+    }
+    
+    public var activePlayersNotAllInCount: Int {
+        activePlayerHands
+            .filter { $0.isAllIn == false }
+            .count
+    }
 }
 
 // MARK: - Player Hand Accessors

@@ -24,13 +24,12 @@ extension NoLimitHoldEmHand {
             return
         }
         
-        let activePlayersNotAllInCount: Int = activePlayerHands
-            .filter { $0.isAllIn == false }
-            .count
         if activePlayersNotAllInCount <= 1 {
-            collectBets()
-            round = .river
-            completeHand()
+            collectBets() // why do i need to do this twice?
+            if autoProgress.autoMoveToNextRound && isReadyForDramaticReveal == false {
+                round = .river
+                completeHand()
+            }
         } else {
             resetPlayersHaveMoved()
             resetCurrentPlayerForNextRound()
