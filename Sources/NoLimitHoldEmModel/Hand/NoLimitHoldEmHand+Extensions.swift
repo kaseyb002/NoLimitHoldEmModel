@@ -6,7 +6,10 @@ extension NoLimitHoldEmHand {
     }
     
     public var canCheck: Bool {
-        (currentPlayerHand?.currentBet ?? .zero) >= maxOutstandingBet
+        guard state.isWaitingForPlayerToAct else {
+            return false
+        }
+        return (currentPlayerHand?.currentBet ?? .zero) >= maxOutstandingBet
     }
     
     public var totalPotAndBets: Decimal {
@@ -212,5 +215,22 @@ extension NoLimitHoldEmHand {
     
     public func playerHand(byID playerID: String) -> PlayerHand? {
         playerHands.first(where: { playerID == $0.player.id })
+    }
+}
+
+
+extension NoLimitHoldEmHand.State {
+    public var isWaitingForPlayerToAct: Bool {
+        switch self {
+        case .waitingForSmallBlind,
+                .waitingForBigBlind,
+                .waitingToProgressToNextRound,
+                .handComplete
+            :
+            false
+            
+        case .waitingForPlayerToAct:
+            true
+        }
     }
 }
