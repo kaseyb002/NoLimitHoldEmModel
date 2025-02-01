@@ -27,7 +27,6 @@ private extension NoLimitHoldEmHand {
         case .flop, .turn, .river:
             if let currentPlayersBestHand {
                 makeMove(postflopMove(bestHand: currentPlayersBestHand))
-                
             } else {
                 makeBlindMove()
             }
@@ -93,48 +92,48 @@ private extension NoLimitHoldEmHand {
         if isFacingNoBet {
             switch currentPlayerHand.pocketCards.tier {
             case 1, 2, 3:
-                return BoolExtensions.random(withProbability: 0.90) ? .raise3xBlind : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.90)) ? .raise3xBlind : .call
                 
             case 4, 5:
-                return BoolExtensions.random(withProbability: 0.50) ? .raise3xBlind : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.50)) ? .raise3xBlind : .call
                 
             default:
                 if justNeedToPaySmallBlind {
                     return .call
-                } else if BoolExtensions.random(withProbability: 0.75) {
+                } else if BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.75)) {
                     return .fold
                 } else {
-                    return BoolExtensions.random(withProbability: 0.85) ? .call : .raise3xBlind
+                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.85)) ? .call : .raise3xBlind
                 }
             }
         } else if isFacingStandardBet {
             switch currentPlayerHand.pocketCards.tier {
             case 1, 2:
-                return BoolExtensions.random(withProbability: 0.80) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot : .call
                 
             case 3, 4, 5:
-                return BoolExtensions.random(withProbability: 0.15) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.15)) ? .raisePot : .call
                 
             default:
-                if BoolExtensions.random(withProbability: 0.85) {
+                if BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.85)) {
                     return .fold
                 } else {
-                    return BoolExtensions.random(withProbability: 0.85) ? .call : .raise3xBlind
+                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.85)) ? .call : .raise3xBlind
                 }
             }
         } else if isFacingBigBet {
             switch currentPlayerHand.pocketCards.tier {
             case 1, 2:
-                return BoolExtensions.random(withProbability: 0.80) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot : .call
                 
             case 3, 4, 5:
-                return BoolExtensions.random(withProbability: 0.80) ? .call : .fold
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .call : .fold
                 
             default:
-                if BoolExtensions.random(withProbability: 0.95) {
+                if BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.95)) {
                     return .fold
                 } else {
-                    return BoolExtensions.random(withProbability: 0.90) ? .call : .raisePot
+                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.90)) ? .call : .raisePot
                 }
             }
         } else {
@@ -146,52 +145,69 @@ private extension NoLimitHoldEmHand {
         if isFacingNoBet {
             switch bestHand.tier {
             case 1, 2, 3:
-                return BoolExtensions.random(withProbability: 0.90) ? .raise3xBlind : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.90)) ? .raise3xBlind : .call
                 
             case 4, 5:
-                return BoolExtensions.random(withProbability: 0.50) ? .raise3xBlind : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.50)) ? .raise3xBlind : .call
                 
             default:
                 if justNeedToPaySmallBlind {
                     return .call
-                } else if BoolExtensions.random(withProbability: 0.75) {
+                } else if BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.75)) {
                     return .fold
                 } else {
-                    return BoolExtensions.random(withProbability: 0.85) ? .call : .raise3xBlind
+                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.85)) ? .call : .raise3xBlind
                 }
             }
         } else if isFacingStandardBet {
             switch bestHand.tier {
             case 1, 2:
-                return BoolExtensions.random(withProbability: 0.80) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot : .call
                 
             case 3, 4, 5:
-                return BoolExtensions.random(withProbability: 0.15) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.15)) ? .raisePot : .call
                 
             default:
-                if BoolExtensions.random(withProbability: 0.85) {
+                if BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.85)) {
                     return .fold
                 } else {
-                    return BoolExtensions.random(withProbability: 0.85) ? .call : .raise3xBlind
+                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.85)) ? .call : .raise3xBlind
                 }
             }
         } else if isFacingBigBet {
             switch bestHand.tier {
             case 1, 2:
-                return BoolExtensions.random(withProbability: 0.80) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot : .call
                 
             case 3, 4, 5:
-                return BoolExtensions.random(withProbability: 0.80) ? .call : .fold
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .call : .fold
                 
             default:
-                if BoolExtensions.random(withProbability: 0.95) {
+                if BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.95)) {
                     return .fold
                 } else {
-                    return BoolExtensions.random(withProbability: 0.90) ? .call : .raisePot
+                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.90)) ? .call : .raisePot
                 }
             }
         } else {
             return .fold
+        }
+    }
+    
+    private func probabilityWeightedByPlayerCount(baseProbability: Float) -> Float {
+        func weight(by amount: Float) -> Float {
+            (baseProbability + amount) / (1 + amount)
+        }
+        
+        switch playerHands.count {
+        case 0 ... 3:
+            return weight(by: 2)
+            
+        case 4 ... 7:
+            return weight(by: 1)
+            
+        default:
+            return baseProbability
         }
     }
     
