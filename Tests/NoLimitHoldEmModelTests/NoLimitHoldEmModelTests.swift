@@ -118,6 +118,10 @@ final class NoLimitHoldEmModelTests: XCTestCase {
             expectedPots.map { $0.playerIds }.flatMap { $0 }.sorted(by: { $0 < $1 }),
             hand.pots.map { $0.playerIds }.flatMap { $0 }.sorted(by: { $0 < $1 })
         )
+        XCTAssertEqual(
+            hand.playerHands.reduce(.zero) { $0 + $1.startingChipCount },
+            hand.playerHands.reduce(.zero) { $0 + $1.player.chipCount }
+        )
     }
     
     func testSidePot2() throws {
@@ -139,6 +143,10 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         try hand.bet(amount: .init(integerLiteral: 300)) // C calls 300
         try hand.bet(amount: .init(integerLiteral: 1200)) // D all in at 1500
         try hand.bet(amount: .init(integerLiteral: 500)) // C calls 500
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
         let expectedPots: [Pot] = [
             .init(
                 amount: .init(integerLiteral: 800), // 200 * 4
@@ -244,6 +252,11 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         try hand.bet(amount: .init(integerLiteral: 150)) // Dave raises 150
         try hand.bet(amount: .init(integerLiteral: 300)) // Ed re-raises to 300
         try hand.fold() // Dave folds
+        
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
         
         expectedPots = [
             .init(
@@ -360,6 +373,11 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         try hand.bet(amount: 1500)
         try hand.call()
         
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
+
         XCTAssertEqual(hand.playerHands[0].player.chipCount, 1500)
         XCTAssertEqual(hand.playerHands[1].player.chipCount, 1500)
     }
@@ -453,6 +471,11 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         try hand.bet(amount: 8_460_000_000)
         try hand.fold()
         
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
+        hand.progressRoundIfReady()
+
         XCTAssert(hand.pots.count == 2)
         //8_555_860_000
         XCTAssertEqual(hand.pots.first?.amount, 87_580_000)
@@ -599,6 +622,37 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         try hand.bet(amount: 1.60)
     }
     
+    func testAIHandsIdefinitely() async throws {
+        for i in 1 ... 10_000 {
+            var hand: NoLimitHoldEmHand = try .randomizedFake(
+                blinds: .init(
+                    0.50,
+                    1.00
+                ),
+                players: [
+                    .fake(chipCount: 50),
+                    .fake(chipCount: 50),
+                    .fake(chipCount: 50),
+                    .fake(chipCount: 50),
+                    .fake(chipCount: 50),
+                    .fake(chipCount: 50),
+                    .fake(chipCount: 50),
+                ]
+            )
+            
+            while hand.state != .handComplete {
+                hand = AI.makeAIMoveIfNeeded(in: hand, autoAdvance: true)
+            }
+            
+            XCTAssertEqual(
+                hand.playerHands.reduce(.zero) { $0 + $1.startingChipCount },
+                hand.playerHands.reduce(.zero) { $0 + $1.player.chipCount }
+            )
+            
+            print("### \(i) hand is complete, money is clean")
+        }
+    }
+    
     func testParseHandJSON() throws {
         let data: Data = try loadJSON(fromFile: "hand")
         let decoder: JSONDecoder = .init()
@@ -633,6 +687,21 @@ extension NoLimitHoldEmHand {
                 continue
             }
             try bet(amount: currentPlayerHand.player.chipCount)
+            progressRoundIfReady()
+            progressRoundIfReady()
+            progressRoundIfReady()
+            progressRoundIfReady()
+            progressRoundIfReady()
         }
+    }
+}
+
+
+
+private extension NoLimitHoldEmHand {
+    var missingMoney: Decimal {
+        let beginningAmount: Decimal = playerHands.reduce(.zero) { $0 + $1.startingChipCount }
+        let endingAmount: Decimal = playerHands.reduce(.zero) { $0 + $1.player.chipCount }
+        return beginningAmount - endingAmount
     }
 }

@@ -1,3 +1,4 @@
+import Foundation
 import Testing
 @testable import NoLimitHoldEmModel
 
@@ -86,5 +87,107 @@ struct SidePotTests {
         try hand.fold()
         
         print(hand.log.debugDescription)
+    }
+
+    @Test func missingMoney() async throws {
+        let deck: Deck = .init(cards: [
+            // mary
+            .fake(),
+            .fake(),
+            // me
+            .init(rank: .ace, suit: .diamond),
+            .init(rank: .nine, suit: .diamond),
+            // susan
+            .fake(),
+            .fake(),
+            // richard
+            .init(rank: .queen, suit: .heart),
+            .init(rank: .queen, suit: .spade),
+            // emily
+            .init(rank: .two, suit: .club),
+            .init(rank: .two, suit: .heart),
+            // charles
+            .fake(),
+            .fake(),
+            // linda
+            .fake(),
+            .fake(),
+            // board
+            .init(rank: .five, suit: .spade),
+            .init(rank: .king, suit: .spade),
+            .init(rank: .six, suit: .spade),
+            .init(rank: .six, suit: .diamond),
+            .init(rank: .two, suit: .spade),
+        ])
+        var hand: NoLimitHoldEmHand = try .init(
+            blinds: .init(
+                0.50,
+                1.00
+            ),
+            players: [
+                .init(
+                    id: "mary",
+                    name: "Mary",
+                    chipCount: 23.75,
+                    imageURL: nil
+                ),
+                .init(
+                    id: "me",
+                    name: "Me",
+                    chipCount: 74.25,
+                    imageURL: nil
+                ),
+                .init(
+                    id: "susan",
+                    name: "Susan",
+                    chipCount: 1.75,
+                    imageURL: nil
+                ),
+                .init(
+                    id: "richard",
+                    name: "Richard",
+                    chipCount: 0.25,
+                    imageURL: nil
+                ),
+                .init(
+                    id: "emily",
+                    name: "Emily",
+                    chipCount: 101.25,
+                    imageURL: nil
+                ),
+                .init(
+                    id: "charles",
+                    name: "Charles",
+                    chipCount: 28.50,
+                    imageURL: nil
+                ),
+                .init(
+                    id: "linda",
+                    name: "Linda",
+                    chipCount: 20.25,
+                    imageURL: nil
+                ),
+            ],
+            cookedDeck: deck
+        )
+        try hand.postSmallBlind()
+        
+        try hand.postBigBlind()
+        
+        try hand.call()
+        
+        try hand.call()
+        try hand.bet(amount: 3)
+        try hand.fold()
+        try hand.fold()
+        try hand.fold()
+        try hand.fold()
+        try hand.fold()
+        while hand.isReadyForNextRound {
+            hand.progressRoundIfReady()
+        }
+        let starting: Decimal = hand.playerHands.reduce(.zero) { $0 + $1.startingChipCount }
+        let ending: Decimal = hand.playerHands.reduce(.zero) { $0 + $1.player.chipCount }
+        #expect(starting == ending)
     }
 }

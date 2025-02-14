@@ -13,7 +13,6 @@ extension NoLimitHoldEmHand {
             .filter { $0.currentBet > .zero }
         let bettingPlayerIds: Set<String> = Set(
             bettingPlayerHands
-                .filter { $0.status == .in }
                 .map { $0.player.id }
         )
         
@@ -74,7 +73,6 @@ extension NoLimitHoldEmHand {
         // we only want to include players who have bet beyond the player who is all in
         let sidePotPlayerIds: Set<String> = Set(
             sidePotPlayerHands
-                .filter { $0.status == .in }
                 .map { $0.player.id }
         )
         let newSidePot: Pot = .init(playerIds: sidePotPlayerIds)
