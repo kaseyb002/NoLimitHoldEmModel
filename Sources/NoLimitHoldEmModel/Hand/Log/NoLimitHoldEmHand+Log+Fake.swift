@@ -6,40 +6,24 @@ extension NoLimitHoldEmHand.Log {
         started: Date = "2023-04-18".date(withFormat: "yyyy-MM-dd")!,
         startingPlayerHands: [PlayerHand] = [
             .fake(
-                pocketCards: .init(
-                    first: .init(rank: .seven, suit: .club),
-                    second: .init(rank: .two, suit: .club)
-                ),
                 player: .fake(
                     id: "1",
                     name: "A"
                 )
             ),
             .fake(
-                pocketCards: .init(
-                    first: .init(rank: .seven, suit: .diamond),
-                    second: .init(rank: .two, suit: .diamond)
-                ),
                 player: .fake(
                     id: "2",
                     name: "B"
                 )
             ),
             .fake(
-                pocketCards: .init(
-                    first: .init(rank: .seven, suit: .heart),
-                    second: .init(rank: .two, suit: .heart)
-                ),
                 player: .fake(
                     id: "3",
                     name: "C"
                 )
             ),
             .fake(
-                pocketCards: .init(
-                    first: .init(rank: .seven, suit: .spade),
-                    second: .init(rank: .two, suit: .spade)
-                ),
                 player: .fake(
                     id: "4",
                     name: "D"

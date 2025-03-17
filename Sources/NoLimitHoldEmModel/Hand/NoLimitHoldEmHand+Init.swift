@@ -18,7 +18,10 @@ extension NoLimitHoldEmHand {
             deck.shuffle()
         }
         
-        let playerHands: [PlayerHand] = Self.dealCards(
+        let playerHands: [PlayerHand] = players.map { player in
+            PlayerHand(player: player)
+        }
+        let pocketCards: [String: PocketCards] = Self.dealCards(
             to: players,
             deck: &deck
         )
@@ -30,6 +33,7 @@ extension NoLimitHoldEmHand {
         self.board = board
         self.blinds = blinds
         self.playerHands = playerHands
+        self.pocketCards = pocketCards
         self.log = .init(
             handID: id,
             started: started,
@@ -42,22 +46,16 @@ extension NoLimitHoldEmHand {
     public static func dealCards(
         to players: [Player],
         deck: inout Deck
-    ) -> [PlayerHand] {
-        var playerHands: [PlayerHand] = []
-        
+    ) -> [String: PocketCards] {
+        var allPocketCards: [String: PocketCards] = [:]
         for player in players {
             let pocketCards: PocketCards = .init(
                 first: deck.cards.removeLast(),
                 second: deck.cards.removeLast()
             )
-            let playerHand: PlayerHand = .init(
-                pocketCards: pocketCards, 
-                player: player
-            )
-            playerHands.append(playerHand)
+            allPocketCards[player.id] = pocketCards
         }
-        
-        return playerHands
+        return allPocketCards
     }
     
     public static func makeBoard(deck: inout Deck) -> [Card] {

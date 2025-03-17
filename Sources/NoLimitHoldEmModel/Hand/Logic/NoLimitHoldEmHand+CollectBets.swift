@@ -106,9 +106,12 @@ extension NoLimitHoldEmHand {
         for pot in pots {
             var winningHands: Set<WinningHand> = []
             for playerHand in activePlayerHands where pot.playerIds.contains(playerHand.player.id) {
+                guard let pocketCards: PocketCards = pocketCards[playerHand.player.id] else {
+                    continue
+                }
                 let cards: [Card] = board + [
-                    playerHand.pocketCards.first,
-                    playerHand.pocketCards.second
+                    pocketCards.first,
+                    pocketCards.second
                 ]
                 let hand: PokerHand = try! cards.bestPokerHand()
                 

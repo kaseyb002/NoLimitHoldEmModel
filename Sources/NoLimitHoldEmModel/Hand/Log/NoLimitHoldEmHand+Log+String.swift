@@ -46,14 +46,16 @@ extension NoLimitHoldEmHand.Log {
             log += "Board: \(board.debugDescription)"
             for endPlayerHand in results.endPlayerHands where endPlayerHand.status == .in {
                 log += "\n"
-                log += "\(endPlayerHand.player.name) has \(endPlayerHand.pocketCards.debugDescription)."
+                // TODO: POCKETCARDS
+//                log += "\(endPlayerHand.player.name) has \(endPlayerHand.pocketCards.debugDescription)."
             }
             
             appendLogSectionTitle(to: &log, title: "Pots")
             log += "\(results.pots.debugDescription(getName: { id in results.endPlayerHands.first(where: { $0.player.id == id })?.player.name ?? id }))"
             
             appendLogSectionTitle(to: &log, title: "Pot Winners")
-            log += "\(results.potWinners.debugDescription(getName: { id in results.endPlayerHands.first(where: { $0.player.id == id })?.player.name ?? id }, getPocketCards: { id in results.endPlayerHands.first(where: { $0.player.id == id })?.pocketCards }))"
+            // TODO: POCKETCARDS
+//            log += "\(results.potWinners.debugDescription(getName: { id in results.endPlayerHands.first(where: { $0.player.id == id })?.player.name ?? id }, getPocketCards: { id in results.endPlayerHands.first(where: { $0.player.id == id })?.pocketCards }))"
             
             appendLogSectionTitle(to: &log, title: "Gains/Losses")
             for playerHand in results.endPlayerHands {
@@ -143,16 +145,18 @@ extension NoLimitHoldEmHand.Log {
             }
             
         case .show(let showCards):
-            switch showCards {
-            case .first:
-                string += " showed \(playerHand.pocketCards.first.debugDescription)."
-                
-            case .second:
-                string += " showed \(playerHand.pocketCards.second.debugDescription)."
-
-            case .both:
-                string += " showed \(playerHand.pocketCards.debugDescription)."
-            }
+            // TODO: POCKETCARDS
+            break
+//            switch showCards {
+//            case .first:
+//                string += " showed \(playerHand.pocketCards.first.debugDescription)."
+//                
+//            case .second:
+//                string += " showed \(playerHand.pocketCards.second.debugDescription)."
+//
+//            case .both:
+//                string += " showed \(playerHand.pocketCards.debugDescription)."
+//            }
         }
         
         return string

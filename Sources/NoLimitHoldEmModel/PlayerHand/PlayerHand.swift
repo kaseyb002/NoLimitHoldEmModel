@@ -2,7 +2,6 @@ import Foundation
 
 public struct PlayerHand: Codable, Hashable {
     public var player: Player
-    public let pocketCards: PocketCards
     public let startingChipCount: Decimal
     public var hasMovedThisRound: Bool = false
     public var currentBet: Decimal = .zero
@@ -15,14 +14,12 @@ public struct PlayerHand: Codable, Hashable {
     }
     
     public init(
-        pocketCards: PocketCards,
         player: Player,
         hasMovedThisRound: Bool = false,
         currentBet: Decimal = .zero,
         showCards: ShowCards? = nil,
         status: Status = .in
     ) {
-        self.pocketCards = pocketCards
         self.startingChipCount = player.chipCount
         self.player = player
         self.hasMovedThisRound = hasMovedThisRound

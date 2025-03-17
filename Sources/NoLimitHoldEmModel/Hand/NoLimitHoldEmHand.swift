@@ -11,7 +11,8 @@ public struct NoLimitHoldEmHand: Hashable, Codable, Identifiable {
     public internal(set) var state: State = .waitingForSmallBlind
     public internal(set) var round: Round = .preflop
     public internal(set) var playerHands: [PlayerHand]
-    
+    public let pocketCards: [String: PocketCards]
+
     // MARK: - Results
     public internal(set) var pots: [Pot] = []
     public internal(set) var potWinners: [PotResult] = []

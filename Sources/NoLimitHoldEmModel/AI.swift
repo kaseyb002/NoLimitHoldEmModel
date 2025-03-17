@@ -88,9 +88,11 @@ private extension NoLimitHoldEmHand {
     }
     
     private func preflopMove() -> AIMove {
-        guard let currentPlayerHand else { return .fold }
+        guard let currentPlayerHand,
+              let pocketCards: PocketCards = pocketCards[currentPlayerHand.player.id]
+        else { return .fold }
         if isFacingNoBet {
-            switch currentPlayerHand.pocketCards.tier {
+            switch pocketCards.tier {
             case 1, 2, 3:
                 return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.90)) ? .raise3xBlind : .call
                 
@@ -107,7 +109,7 @@ private extension NoLimitHoldEmHand {
                 }
             }
         } else if isFacingStandardBet {
-            switch currentPlayerHand.pocketCards.tier {
+            switch pocketCards.tier {
             case 1, 2:
                 return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot : .call
                 
@@ -122,7 +124,7 @@ private extension NoLimitHoldEmHand {
                 }
             }
         } else if isFacingBigBet {
-            switch currentPlayerHand.pocketCards.tier {
+            switch pocketCards.tier {
             case 1, 2:
                 return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot : .call
                 
@@ -232,7 +234,9 @@ private extension NoLimitHoldEmHand {
     }
     
     private var currentPlayersBestHand: PokerHand? {
-        guard let currentPlayerHand else { return nil }
+        guard let currentPlayerHand,
+              let pocketCards: PocketCards = pocketCards[currentPlayerHand.player.id]
+        else { return nil }
         switch round {
         case .preflop:
             return nil
@@ -240,24 +244,24 @@ private extension NoLimitHoldEmHand {
         case .flop:
             return try? .init(
                 cards: [
-                    currentPlayerHand.pocketCards.first,
-                    currentPlayerHand.pocketCards.second,
+                    pocketCards.first,
+                    pocketCards.second,
                 ] + board[0...2]
             )
             
         case .turn:
             return try? .init(
                 cards: [
-                    currentPlayerHand.pocketCards.first,
-                    currentPlayerHand.pocketCards.second,
+                    pocketCards.first,
+                    pocketCards.second,
                 ] + board[0...3]
             )
             
         case .river:
             return try? .init(
                 cards: [
-                    currentPlayerHand.pocketCards.first,
-                    currentPlayerHand.pocketCards.second,
+                    pocketCards.first,
+                    pocketCards.second,
                 ] + board[0...4]
             )
         }
