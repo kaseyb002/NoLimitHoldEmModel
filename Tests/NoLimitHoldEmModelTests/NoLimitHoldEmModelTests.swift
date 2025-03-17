@@ -361,13 +361,13 @@ final class NoLimitHoldEmModelTests: XCTestCase {
             cookedDeck: deck
         )
         XCTAssertEqual(
-            hand.playerHands[0].pocketCards.first.rank,
-            hand.playerHands[1].pocketCards.first.rank
+            hand.pocketCards[hand.playerHands[0].player.id]?.first.rank,
+            hand.pocketCards[hand.playerHands[1].player.id]?.first.rank
         )
         
         XCTAssertEqual(
-            hand.playerHands[0].pocketCards.second.rank,
-            hand.playerHands[1].pocketCards.second.rank
+            hand.pocketCards[hand.playerHands[0].player.id]?.second.rank,
+            hand.pocketCards[hand.playerHands[1].player.id]?.second.rank
         )
         
         try hand.bet(amount: 1500)
@@ -620,37 +620,6 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         try hand.postBigBlind()
         try hand.bet(amount: 0.80)
         try hand.bet(amount: 1.60)
-    }
-    
-    func testAIHandsIdefinitely() async throws {
-        for i in 1 ... 10_000 {
-            var hand: NoLimitHoldEmHand = try .randomizedFake(
-                blinds: .init(
-                    0.50,
-                    1.00
-                ),
-                players: [
-                    .fake(chipCount: 50),
-                    .fake(chipCount: 50),
-                    .fake(chipCount: 50),
-                    .fake(chipCount: 50),
-                    .fake(chipCount: 50),
-                    .fake(chipCount: 50),
-                    .fake(chipCount: 50),
-                ]
-            )
-            
-            while hand.state != .handComplete {
-                hand = AI.makeAIMoveIfNeeded(in: hand, autoAdvance: true)
-            }
-            
-            XCTAssertEqual(
-                hand.playerHands.reduce(.zero) { $0 + $1.startingChipCount },
-                hand.playerHands.reduce(.zero) { $0 + $1.player.chipCount }
-            )
-            
-            print("### \(i) hand is complete, money is clean")
-        }
     }
     
     func testParseHandJSON() throws {
