@@ -6,7 +6,7 @@ public struct PlayerHand: Codable, Hashable {
     public var hasMovedThisRound: Bool = false
     public var currentBet: Decimal = .zero
     public var status: Status
-    public var showCards: ShowCards?
+    public var revealedCards: RevealedCards
     public var isAllIn: Bool { player.chipCount  == .zero }
     
     public enum Status: String, Hashable, Codable {
@@ -17,14 +17,14 @@ public struct PlayerHand: Codable, Hashable {
         player: Player,
         hasMovedThisRound: Bool = false,
         currentBet: Decimal = .zero,
-        showCards: ShowCards? = nil,
+        revealedCards: RevealedCards = RevealedCards(),
         status: Status = .in
     ) {
+        self.revealedCards = revealedCards
         self.startingChipCount = player.chipCount
         self.player = player
         self.hasMovedThisRound = hasMovedThisRound
         self.currentBet = currentBet
-        self.showCards = showCards
         self.status = status
     }
 }

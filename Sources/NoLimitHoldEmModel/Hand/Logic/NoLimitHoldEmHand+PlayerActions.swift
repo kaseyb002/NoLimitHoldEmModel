@@ -141,13 +141,34 @@ extension NoLimitHoldEmHand {
         playerID: String,
         showCards: ShowCards
     ) throws {
-        guard let playerHandIndex: Int = playerHands.firstIndex(where: { $0.player.id == playerID }) else {
+        guard let playerHandIndex: Int = playerHands.firstIndex(where: { $0.player.id == playerID }),
+              let pocketCards: PocketCards = pocketCards[playerID]
+        else {
             throw NoLimitHoldEmHandError.playerIDNotFound
         }
         guard playerHands[playerHandIndex].status == .in else {
             throw NoLimitHoldEmHandError.playerHasFolded
         }
-        playerHands[playerHandIndex].showCards = showCards
+        let currentlyRevealedCards: RevealedCards = playerHands[playerHandIndex].revealedCards
+        switch showCards {
+        case .first:
+            playerHands[playerHandIndex].revealedCards = RevealedCards(
+                first: pocketCards.first,
+                second: currentlyRevealedCards.second
+            )
+    
+        case .second:
+            playerHands[playerHandIndex].revealedCards = RevealedCards(
+                first: currentlyRevealedCards.first,
+                second: pocketCards.second
+            )
+            
+        case .both:
+            playerHands[playerHandIndex].revealedCards = RevealedCards(
+                first: pocketCards.first,
+                second: pocketCards.second
+            )
+        }
         logDecision(
             .show(cards: showCards),
             playerHand: playerHands[playerHandIndex]
