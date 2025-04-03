@@ -205,6 +205,29 @@ extension NoLimitHoldEmHand {
             .filter { $0.isAllIn == false }
             .count
     }
+    
+    public var forceRevealCardsForPlayerIDs: Set<String> {
+        func forceRevealCards(playerHand: PlayerHand) -> Bool {
+            guard playerHand.status == .in else {
+                return false
+            }
+            
+            if isReadyForDramaticReveal {
+                return true
+            }
+            
+            guard state == .handComplete else {
+                return false
+            }
+            
+            return activePlayerHands.count > 1
+        }
+        
+        return activePlayerHands
+            .filter(forceRevealCards)
+            .map(\.player.id)
+            .asSet()
+    }
 }
 
 // MARK: - Player Hand Accessors
