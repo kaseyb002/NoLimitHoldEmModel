@@ -37,6 +37,24 @@ extension NoLimitHoldEmHand.Log {
             .init(rank: .king, suit: .spade),
             .init(rank: .ace, suit: .spade),
         ],
+        pocketCards: [String: PocketCards] = [
+            "1": PocketCards(
+                first: Card(rank: .ace, suit: .heart),
+                second: Card(rank: .king, suit: .heart)
+            ),
+            "2": PocketCards(
+                first: Card(rank: .ace, suit: .club),
+                second: Card(rank: .king, suit: .club)
+            ),
+            "3": PocketCards(
+                first: Card(rank: .ace, suit: .diamond),
+                second: Card(rank: .king, suit: .diamond)
+            ),
+            "4": PocketCards(
+                first: Card(rank: .queen, suit: .heart),
+                second: Card(rank: .three, suit: .heart)
+            ),
+        ],
         blinds: Blinds = .init(25, 50),
         actions: NoLimitHoldEmHand.Log.Actions = .init(),
         results: NoLimitHoldEmHand.Log.Results? = nil
@@ -46,6 +64,7 @@ extension NoLimitHoldEmHand.Log {
             started: started,
             startingPlayerHands: startingPlayerHands,
             board: board,
+            pocketCards: pocketCards,
             blinds: blinds
         )
     }

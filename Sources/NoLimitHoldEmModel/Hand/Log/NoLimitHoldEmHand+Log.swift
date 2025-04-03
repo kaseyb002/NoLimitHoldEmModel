@@ -7,6 +7,7 @@ extension NoLimitHoldEmHand {
         public let startingPlayerHands: [PlayerHand]
         public let board: [Card]
         public let blinds: Blinds
+        public let pocketCards: [String: PocketCards]
         public var actions: Actions
         public var results: Results?
         
@@ -18,6 +19,7 @@ extension NoLimitHoldEmHand {
             case blinds
             case actions
             case results
+            case pocketCards
         }
         
         // MARK: - Action Groups
@@ -91,6 +93,7 @@ extension NoLimitHoldEmHand {
             started: Date,
             startingPlayerHands: [PlayerHand],
             board: [Card],
+            pocketCards: [String: PocketCards],
             blinds: Blinds
         ) {
             self.handID = handID
@@ -98,6 +101,7 @@ extension NoLimitHoldEmHand {
             self.startingPlayerHands = startingPlayerHands
             self.board = board
             self.blinds = blinds
+            self.pocketCards = pocketCards
             self.actions = .init()
         }
     }

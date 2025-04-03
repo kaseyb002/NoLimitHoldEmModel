@@ -46,16 +46,17 @@ extension NoLimitHoldEmHand.Log {
             log += "Board: \(board.debugDescription)"
             for endPlayerHand in results.endPlayerHands where endPlayerHand.status == .in {
                 log += "\n"
-                // TODO: POCKETCARDS
-//                log += "\(endPlayerHand.player.name) has \(endPlayerHand.pocketCards.debugDescription)."
+                guard let pocketCards: PocketCards = pocketCards[endPlayerHand.player.id] else {
+                    continue
+                }
+                log += "\(endPlayerHand.player.name) has \(pocketCards.debugDescription)."
             }
             
             appendLogSectionTitle(to: &log, title: "Pots")
             log += "\(results.pots.debugDescription(getName: { id in results.endPlayerHands.first(where: { $0.player.id == id })?.player.name ?? id }))"
             
             appendLogSectionTitle(to: &log, title: "Pot Winners")
-            // TODO: POCKETCARDS
-//            log += "\(results.potWinners.debugDescription(getName: { id in results.endPlayerHands.first(where: { $0.player.id == id })?.player.name ?? id }, getPocketCards: { id in results.endPlayerHands.first(where: { $0.player.id == id })?.pocketCards }))"
+            log += "\(results.potWinners.debugDescription(getName: { id in results.endPlayerHands.first(where: { $0.player.id == id })?.player.name ?? id }, getPocketCards: { id in pocketCards[id] } ))"
             
             appendLogSectionTitle(to: &log, title: "Gains/Losses")
             for playerHand in results.endPlayerHands {
@@ -145,18 +146,19 @@ extension NoLimitHoldEmHand.Log {
             }
             
         case .show(let showCards):
-            // TODO: POCKETCARDS
-            break
-//            switch showCards {
-//            case .first:
-//                string += " showed \(playerHand.pocketCards.first.debugDescription)."
-//                
-//            case .second:
-//                string += " showed \(playerHand.pocketCards.second.debugDescription)."
-//
-//            case .both:
-//                string += " showed \(playerHand.pocketCards.debugDescription)."
-//            }
+            guard let pocketCards: PocketCards = pocketCards[playerHand.player.id] else {
+                break
+            }
+            switch showCards {
+            case .first:
+                string += " showed \(pocketCards.first.debugDescription)."
+                
+            case .second:
+                string += " showed \(pocketCards.second.debugDescription)."
+
+            case .both:
+                string += " showed \(pocketCards.debugDescription)."
+            }
         }
         
         return string

@@ -39,6 +39,7 @@ extension NoLimitHoldEmHand {
             started: started,
             startingPlayerHands: playerHands,
             board: board,
+            pocketCards: pocketCards,
             blinds: blinds
         )
     }
