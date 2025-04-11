@@ -170,7 +170,7 @@ extension NoLimitHoldEmHand {
             )
         }
         logDecision(
-            .show(cards: showCards),
+            .show(cards: showCards, revealedCards: playerHands[playerHandIndex].revealedCards),
             playerHand: playerHands[playerHandIndex]
         )
     }

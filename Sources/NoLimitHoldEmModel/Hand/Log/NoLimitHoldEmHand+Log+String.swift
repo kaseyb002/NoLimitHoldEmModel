@@ -145,19 +145,16 @@ extension NoLimitHoldEmHand.Log {
                 string += " calls \(amount.moneyString)."
             }
             
-        case .show(let showCards):
-            guard let pocketCards: PocketCards = pocketCards[playerHand.player.id] else {
-                break
-            }
+        case .show(let showCards, let revealedCards):
             switch showCards {
             case .first:
-                string += " showed \(pocketCards.first.debugDescription)."
+                string += " showed \(revealedCards.first?.debugDescription ?? "")."
                 
             case .second:
-                string += " showed \(pocketCards.second.debugDescription)."
+                string += " showed \(revealedCards.second?.debugDescription ?? "")."
 
             case .both:
-                string += " showed \(pocketCards.debugDescription)."
+                string += " showed \(revealedCards.cards.debugDescription)."
             }
         }
         
