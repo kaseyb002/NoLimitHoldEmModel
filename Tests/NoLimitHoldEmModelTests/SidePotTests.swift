@@ -424,6 +424,58 @@ struct SidePotTests {
         print(hand.log.debugDescription)
         #expect(totalStarting == totalEnding, "Mismatch: started with \(totalStarting), ended with \(totalEnding)")
     }
+    
+    @Test func badSplit1() throws {
+        var hand = try NoLimitHoldEmHand(
+            blinds: .init(0.50, 1.00),
+            players: [
+                .init(id: "smith", name: "Smith", chipCount: 5.25, imageURL: nil),
+                .init(id: "me", name: "Me", chipCount: 10.00, imageURL: nil),
+            ],
+            cookedDeck: .init(cards: [
+                .init(rank: .ace, suit: .club),
+                .init(rank: .king, suit: .club),
+                .init(rank: .queen, suit: .club),
+                .init(rank: .jack, suit: .club),
+                .init(rank: .ten, suit: .club),
+                
+                .fake(),
+                .fake(),
+                
+                .fake(),
+                .fake(),
+            ])
+        )
+        try hand.postSmallBlind()
+        try hand.postBigBlind()
+        try hand.call()
+        try hand.check()
+        
+        try hand.check()
+        try hand.check()
+        
+        try hand.check()
+        try hand.check()
+        
+        try hand.bet(amount: .greatestFiniteMagnitude)
+        try hand.call()
+        
+        let totalStarting = hand.playerHands.reduce(Decimal.zero) { $0 + $1.startingChipCount }
+        let totalEnding = hand.playerHands.reduce(Decimal.zero) { $0 + $1.player.chipCount }
+        print(totalStarting)
+        print(totalEnding)
+        print(hand.log.debugDescription)
+        #expect(
+            totalStarting == totalEnding,
+            "Mismatch: started with \(totalStarting), ended with \(totalEnding)"
+        )
+        #expect(
+            hand.playerHands[0].player.chipCount == 5.50
+        )
+        #expect(
+            hand.playerHands[1].player.chipCount == 9.75
+        )
+    }
 }
 
 extension NoLimitHoldEmHand {

@@ -162,11 +162,25 @@ extension NoLimitHoldEmHand {
                 winningsPerPlayer = potWinner.pot.amount
                 remainder = .zero
             } else {
-                // Ensure winningAmount is a factor of number of split pot players
+                // Ensure winningAmount is a factor of number of split pot players.
+                // this can lead to a deliberate bug.
+                // if a player has a chip stack amount that is not a multiple of the small blind. (like from changed blinds)
+                // and there is a split pot, a remainder of some x < smallBlind will be net gained by the
+                // player with the smaller stack.
+                // Let me give an example.
+                // $0.50 / $1.00 blinds
+                // P1 has $10.00
+                // P2 has $5.25
+                // they go all in
+                // P1 will lose $0.25
+                // P2 will gain $0.25
+                // why? because im not going to deal with repeating decimals
+                // if $10 pot gets split by 3 players, then awarded $3.33333333333333333
+                // i could award $0.01 with the same logic, but it's not worth the messiness
                 var winningAmount: Decimal = .zero
-                let smallBlindFactor: Decimal = blinds.smallBlind * Decimal(integerLiteral: potWinner.winningHands.count)
-                while winningAmount < potWinner.pot.amount - smallBlindFactor {
-                    winningAmount += smallBlindFactor
+                let smallBlindMultiple: Decimal = blinds.smallBlind * Decimal(integerLiteral: potWinner.winningHands.count)
+                while winningAmount < potWinner.pot.amount - smallBlindMultiple {
+                    winningAmount += smallBlindMultiple
                 }
                 winningsPerPlayer = winningAmount / Decimal(integerLiteral: potWinner.winningHands.count)
                 remainder = potWinner.pot.amount - winningAmount
