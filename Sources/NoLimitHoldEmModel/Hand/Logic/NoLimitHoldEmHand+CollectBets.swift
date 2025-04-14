@@ -164,8 +164,9 @@ extension NoLimitHoldEmHand {
             } else {
                 // Ensure winningAmount is a factor of number of split pot players
                 var winningAmount: Decimal = .zero
-                while winningAmount < potWinner.pot.amount {
-                    winningAmount += blinds.smallBlind * Decimal(integerLiteral: potWinner.winningHands.count)
+                let smallBlindFactor: Decimal = blinds.smallBlind * Decimal(integerLiteral: potWinner.winningHands.count)
+                while winningAmount < potWinner.pot.amount - smallBlindFactor {
+                    winningAmount += smallBlindFactor
                 }
                 winningsPerPlayer = winningAmount / Decimal(integerLiteral: potWinner.winningHands.count)
                 remainder = potWinner.pot.amount - winningAmount

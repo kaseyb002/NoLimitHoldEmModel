@@ -2,6 +2,60 @@ import XCTest
 @testable import NoLimitHoldEmModel
 
 final class NoLimitHoldEmModelTests: XCTestCase {
+    func testBestHand() throws {
+        let cards: [Card] = [
+            .init(rank: .ace, suit: .heart),
+            .init(rank: .six, suit: .diamond),
+            .init(rank: .ten, suit: .club),
+            .init(rank: .three, suit: .diamond),
+            .init(rank: .seven, suit: .diamond),
+            
+            .init(rank: .ace, suit: .diamond),
+            .init(rank: .ten, suit: .diamond),
+        ]
+        let pokerHand: PokerHand = try cards.bestPokerHand()
+        XCTAssertEqual(
+            pokerHand.topRank,
+            .flush(
+                PokerHand.Flush(
+                    cards:
+                        [
+                            .init(
+                                rank: .three,
+                                suit: .diamond
+                            ),
+                            .init(
+                                rank: .six,
+                                suit: .diamond
+                            ),
+                            .init(
+                                rank: .seven,
+                                suit: .diamond
+                            ),
+                            .init(
+                                rank: .ten,
+                                suit: .diamond
+                            ),
+                            .init(
+                                rank: .ace,
+                                suit: .diamond
+                            ),
+                        ]
+                )!
+            )
+        )
+        XCTAssertEqual(
+            pokerHand.cards,
+            [
+                .init(rank: .three, suit: .diamond),
+                .init(rank: .six, suit: .diamond),
+                .init(rank: .seven, suit: .diamond),
+                .init(rank: .ten, suit: .diamond),
+                .init(rank: .ace, suit: .diamond),
+            ]
+        )
+    }
+
     func testBasicHand() throws {
         var hand: NoLimitHoldEmHand = try .fake()
         try hand.postSmallBlind()
@@ -183,7 +237,7 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         var expectedPots: [Pot] = [
             .init(
                 amount: .init(integerLiteral: 200 * 4 + 100), // 200 * 4 + E's folded 100 bet
-                playerIds: ["1", "2", "3", "4"],
+                playerIds: ["1", "2", "3", "4", "5"],
                 isFull: true
             ),
             .init(
@@ -203,7 +257,7 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         expectedPots = [
             .init(
                 amount: .init(integerLiteral: 900),
-                playerIds: ["1", "2", "3", "4"],
+                playerIds: ["1", "2", "3", "4", "5"],
                 isFull: true
             ),
             .init(
@@ -235,7 +289,7 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         var expectedPots: [Pot] = [
             .init(
                 amount: .init(integerLiteral: 200 * 3 + 50),
-                playerIds: ["1", "4", "5"],
+                playerIds: ["1", "2", "4", "5"],
                 isFull: true
             ),
             .init(
@@ -261,7 +315,7 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         expectedPots = [
             .init(
                 amount: .init(integerLiteral: 200 * 3 + 50),
-                playerIds: ["1", "4", "5"],
+                playerIds: ["1", "2", "4", "5"],
                 isFull: true
             ),
             .init(
