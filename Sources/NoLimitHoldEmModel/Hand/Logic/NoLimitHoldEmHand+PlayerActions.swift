@@ -50,7 +50,7 @@ extension NoLimitHoldEmHand {
             throw NoLimitHoldEmHandError.attemptedToActWithNoCurrentPlayer
         }
         
-        let validBet: Decimal = min(maxBetForCurrentPlayer, amount)
+        let validBet: Decimal = min(maxBetForCurrentPlayer, amount).roundToClosestPenny
         
         guard validBet >= minBetForCurrentPlayer else {
             throw NoLimitHoldEmHandError.insufficientBet

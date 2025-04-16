@@ -113,4 +113,20 @@ extension Decimal {
         formatter.maximumFractionDigits = .zero
         return formatter
     }()
+    
+    public var roundToClosestPenny: Decimal {
+        let decimalNumber: NSDecimalNumber = .init(decimal: self)
+        let roundingBehavior: NSDecimalNumberHandler = .init(
+            roundingMode: .bankers,
+            scale: 2,
+            raiseOnExactness: false,
+            raiseOnOverflow: false,
+            raiseOnUnderflow: false,
+            raiseOnDivideByZero: false
+        )
+        let roundedValue: NSDecimalNumber = decimalNumber.rounding(
+            accordingToBehavior: roundingBehavior
+        )
+        return roundedValue.decimalValue
+    }
 }
