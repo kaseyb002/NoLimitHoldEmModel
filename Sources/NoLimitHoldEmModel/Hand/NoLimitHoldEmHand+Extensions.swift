@@ -188,7 +188,7 @@ extension NoLimitHoldEmHand {
         else {
             return false
         }
-        return currentPlayerHand.player.chipCount > maxOutstandingBet
+        return currentPlayerHand.player.chipCount > maxOutstandingBet - currentPlayerHand.currentBet
     }
     
     public var isReadyForDramaticReveal: Bool {
