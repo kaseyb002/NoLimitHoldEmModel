@@ -12,7 +12,6 @@ extension [Pot] {
                 .sorted(by: { $0 < $1 })
                 .joined(separator: ", ")
             description += "Players: \(names)"
-            description += "\n"
         }
         return description
     }

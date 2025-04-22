@@ -327,8 +327,8 @@ final class NoLimitHoldEmModelTests: XCTestCase {
             pots: expectedPots,
             against: hand.pots
         )
+        print(hand.log.debugDescription)
     }
-    
     
     private func assertExpected(
         pots expectedPots: [Pot],

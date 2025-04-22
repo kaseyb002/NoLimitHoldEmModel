@@ -174,7 +174,9 @@ private extension [Pot] {
             description += "Pot \(index + 1): \(pot.amount.moneyString)"
             description += "\n"
             description += "Players: \(pot.playerIds.map { getName($0) }.sorted(by: { $0 < $1 }).joined(separator: ", "))"
-            description += "\n"
+            if pot.id != last?.id {
+                description += "\n"
+            }
         }
         return description
     }
@@ -198,8 +200,10 @@ extension [PotResult] {
                 }
                 description += "\n"
                 description += "\(winningHand.pokerHand.description)"
-                description += "\n"
-                description += "----"
+                if potResult.pot.id != last?.pot.id {
+                    description += "\n"
+                    description += "----"
+                }
             }
         }
         
