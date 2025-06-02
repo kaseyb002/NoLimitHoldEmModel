@@ -12,4 +12,5 @@ public enum NoLimitHoldEmHandError: Error {
     case attemptedToActWithNoCurrentPlayer
     case playerIDNotFound
     case playerHasFolded
+    case playerHasAlreadyRevealedCards
 }

@@ -146,10 +146,13 @@ extension NoLimitHoldEmHand {
         else {
             throw NoLimitHoldEmHandError.playerIDNotFound
         }
-        if state != .handComplete && playerHands[playerHandIndex].status == .out {
+        if playerHands[playerHandIndex].status == .out && state != .handComplete {
             throw NoLimitHoldEmHandError.playerHasFolded
         }
         let currentlyRevealedCards: RevealedCards = playerHands[playerHandIndex].revealedCards
+        if currentlyRevealedCards.showingCards == showCards {
+            throw NoLimitHoldEmHandError.playerHasAlreadyRevealedCards
+        }
         switch showCards {
         case .first:
             playerHands[playerHandIndex].revealedCards = RevealedCards(
