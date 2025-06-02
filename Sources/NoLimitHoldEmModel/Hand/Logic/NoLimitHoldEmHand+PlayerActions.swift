@@ -146,7 +146,7 @@ extension NoLimitHoldEmHand {
         else {
             throw NoLimitHoldEmHandError.playerIDNotFound
         }
-        guard playerHands[playerHandIndex].status == .in else {
+        if state != .handComplete && playerHands[playerHandIndex].status == .out {
             throw NoLimitHoldEmHandError.playerHasFolded
         }
         let currentlyRevealedCards: RevealedCards = playerHands[playerHandIndex].revealedCards

@@ -34,7 +34,7 @@ extension NoLimitHoldEmHandError {
             "Player is not in the hand."
             
         case .playerHasFolded:
-            "Player has folded."
+            "Player has folded. Must wait until the hand is over."
         }
     }
 }
