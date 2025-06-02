@@ -35,6 +35,9 @@ extension NoLimitHoldEmHandError {
             
         case .playerHasFolded:
             "Player has folded. Must wait until the hand is over."
+            
+        case .playerHasAlreadyRevealedCards:
+            "Player has already revealed cards."
         }
     }
 }
