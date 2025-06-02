@@ -153,6 +153,12 @@ extension NoLimitHoldEmHand {
         if currentlyRevealedCards.showingCards == showCards {
             throw NoLimitHoldEmHandError.playerHasAlreadyRevealedCards
         }
+        switch (currentlyRevealedCards.showingCards, showCards) {
+        case (.both, .first), (.both, .second):
+            throw NoLimitHoldEmHandError.playerHasAlreadyRevealedCards
+        default:
+            break
+        }
         switch showCards {
         case .first:
             playerHands[playerHandIndex].revealedCards = RevealedCards(
