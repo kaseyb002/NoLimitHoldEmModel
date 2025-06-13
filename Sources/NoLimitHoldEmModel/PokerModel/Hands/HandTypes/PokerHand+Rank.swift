@@ -28,7 +28,8 @@ extension PokerHand {
         
         public var displayName: String {
             switch self {
-            case .highCard: return "High Card"
+            case .highCard(let highCard):
+                return "\(highCard.cards.max(by: { $0.rank > $1.rank })!.rank.longDisplayValue) High"
             case .onePair: return "Pair"
             case .twoPair: return "Two Pair"
             case .threeOfAKind: return "Three of a Kind"

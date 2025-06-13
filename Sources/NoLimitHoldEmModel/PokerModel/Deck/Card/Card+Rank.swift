@@ -36,6 +36,24 @@ extension Card {
             }
         }
         
+        public var longDisplayValue: String {
+            switch self {
+            case .ace: return "Ace"
+            case .two: return "Two"
+            case .three: return "Three"
+            case .four: return "Four"
+            case .five: return "Five"
+            case .six: return "Six"
+            case .seven: return "Seven"
+            case .eight: return "Eight"
+            case .nine: return "Nine"
+            case .ten: return "Ten"
+            case .jack: return "Jack"
+            case .queen: return "Queen"
+            case .king: return "King"
+            }
+        }
+        
         /// Indicates most valuable
         public var value: Int {
             switch self {
