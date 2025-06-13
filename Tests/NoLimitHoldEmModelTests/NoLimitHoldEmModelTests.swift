@@ -676,6 +676,15 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         try hand.bet(amount: 1.60)
     }
     
+    func testPreflopStrength() throws {
+        let hands = PocketCards.distinctHandTypesSortedByStrength()
+        for hand in hands {
+            print("\(hand.first.debugDescription) \(hand.second.debugDescription) -> \(hand.preflopStrength)")
+        }
+    }
+    
+    
+    
     func testParseHandJSON() throws {
         let data: Data = try loadJSON(fromFile: "hand")
         let decoder: JSONDecoder = .init()

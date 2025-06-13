@@ -228,6 +228,53 @@ extension NoLimitHoldEmHand {
             .map(\.player.id)
             .asSet()
     }
+    
+    public func drawTips(for playerID: String) -> String? {
+        // Skip if hand isn't beyond preflop or if we're already on the river
+        guard round != .preflop, round != .river,
+              let pocket = pocketCards[playerID] else {
+            return nil
+        }
+
+        let allCards = board + pocket.cards
+        let suits = Dictionary(grouping: allCards, by: { $0.suit })
+        let flushDrawSuit = suits.first(where: { $0.value.count == 4 })?.key
+
+        var tips: [String] = []
+
+        // Flush draw: 4 cards of the same suit
+        if let suit = flushDrawSuit {
+            tips.append("One more \(suit.emoji) gives you a Flush.")
+        }
+
+        // Straight draw logic
+        let ranks: Set<Int> = Set(allCards.map { $0.rank.value })
+        let possibleDraws: [[Int]] = [
+            [0, 1, 2, 3],
+            [1, 2, 3, 4],
+            [2, 3, 4, 5],
+            [3, 4, 5, 6],
+            [4, 5, 6, 7],
+            [5, 6, 7, 8],
+            [6, 7, 8, 9],
+            [7, 8, 9, 10],
+            [8, 9, 10, 11],
+            [9, 10, 11, 12],
+            [0, 9, 10, 11], // Weird edge cases (if you want to allow it)
+            [0, 1, 2, 12]   // A234 wheel draw
+        ]
+
+        for draw in possibleDraws {
+            let missing = draw.filter { !ranks.contains($0) }
+            if missing.count == 1 {
+                if let rank = Card.Rank.allCases.first(where: { $0.value == missing[0] }) {
+                    tips.append("\(rank.displayValue) gives you a Straight.")
+                }
+            }
+        }
+
+        return tips.isEmpty ? nil : tips.joined(separator: " ")
+    }
 }
 
 // MARK: - Player Hand Accessors
