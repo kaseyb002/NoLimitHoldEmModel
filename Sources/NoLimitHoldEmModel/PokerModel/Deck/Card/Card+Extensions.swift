@@ -2,7 +2,7 @@ import Foundation
 
 extension [Card] {
     public func sorted() -> [Card] {
-        sorted(by: { $0.rank < $1.rank })
+        sorted(by: { $0.rank > $1.rank })
     }
     
     public var debugDescription: String {
