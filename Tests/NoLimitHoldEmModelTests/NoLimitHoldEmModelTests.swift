@@ -47,11 +47,11 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         XCTAssertEqual(
             pokerHand.cards,
             [
-                .init(rank: .three, suit: .diamond),
-                .init(rank: .six, suit: .diamond),
-                .init(rank: .seven, suit: .diamond),
-                .init(rank: .ten, suit: .diamond),
                 .init(rank: .ace, suit: .diamond),
+                .init(rank: .ten, suit: .diamond),
+                .init(rank: .seven, suit: .diamond),
+                .init(rank: .six, suit: .diamond),
+                .init(rank: .three, suit: .diamond),
             ]
         )
     }
@@ -683,7 +683,25 @@ final class NoLimitHoldEmModelTests: XCTestCase {
         }
     }
     
-    
+    func testBigBlindHasStackLessThanBigBlind() throws {
+        var hand: NoLimitHoldEmHand = try .fake(
+            blinds: .init(0.50, 1.00),
+            players: [
+                .fake(chipCount: 10),
+                .fake(chipCount: 0.70),
+                .fake(chipCount: 10),
+            ]
+        )
+        try hand.postSmallBlind()
+        try hand.postBigBlind()
+        try hand.call()
+        try hand.call()
+        XCTAssertEqual(hand.playerHands[0].player.chipCount, 9)
+        XCTAssertEqual(hand.playerHands[1].player.chipCount, 0)
+        XCTAssertEqual(hand.playerHands[2].player.chipCount, 9)
+        XCTAssertEqual(hand.pots[0].amount, 2.10)
+        XCTAssertEqual(hand.pots[1].amount, 0.60)
+    }
     
     func testParseHandJSON() throws {
         let data: Data = try loadJSON(fromFile: "hand")

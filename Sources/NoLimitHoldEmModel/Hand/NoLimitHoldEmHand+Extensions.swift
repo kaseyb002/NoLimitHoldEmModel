@@ -63,7 +63,7 @@ extension NoLimitHoldEmHand {
             return blinds.bigBlind
         }
         
-        let amountToCall: Decimal = maxOutstandingBet - currentPlayerHand.currentBet
+        let amountToCall: Decimal = max(maxOutstandingBet, blinds.bigBlind) - currentPlayerHand.currentBet
         if currentPlayerHand.player.chipCount < amountToCall {
             return currentPlayerHand.player.chipCount
         }

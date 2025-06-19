@@ -87,10 +87,10 @@ extension NoLimitHoldEmHand {
             throw NoLimitHoldEmHandError.attemptedToActWithNoCurrentPlayer
         }
         
-        if currentPlayerHand.player.chipCount < maxOutstandingBet {
+        if currentPlayerHand.player.chipCount < max(maxOutstandingBet, blinds.bigBlind) {
             try bet(amount: currentPlayerHand.player.chipCount)
         } else {
-            try bet(amount: maxOutstandingBet - currentPlayerHand.currentBet)
+            try bet(amount: max(maxOutstandingBet, blinds.bigBlind) - currentPlayerHand.currentBet)
         }
     }
     
