@@ -37,7 +37,12 @@ extension PokerHand {
             case .flush: return "Flush"
             case .fullHouse: return "Full House"
             case .fourOfAKind: return "Four of a Kind"
-            case .straightFlush: return "Straight Flush"
+            case .straightFlush(let straightFlush):
+                if straightFlush.highCard.rank == .ace {
+                    return "Royal Flush"
+                } else {
+                    return "Straight Flush"
+                }
             }
         }
         
