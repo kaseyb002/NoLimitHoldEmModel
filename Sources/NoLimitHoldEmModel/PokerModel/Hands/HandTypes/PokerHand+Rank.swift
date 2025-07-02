@@ -46,6 +46,26 @@ extension PokerHand {
             }
         }
         
+        public var sentenceDisplayName: String {
+            switch self {
+            case .highCard(let highCard):
+                return "\(highCard.cards.max(by: { $0.rank < $1.rank })!.rank.longDisplayValue) High"
+            case .onePair: return "a Pair"
+            case .twoPair: return "Two Pair"
+            case .threeOfAKind: return "Three of a Kind"
+            case .straight: return "a Straight"
+            case .flush: return "a Flush"
+            case .fullHouse: return "a Full House"
+            case .fourOfAKind: return "Four of a Kind"
+            case .straightFlush(let straightFlush):
+                if straightFlush.highCard.rank == .ace {
+                    return "a Royal Flush"
+                } else {
+                    return "a Straight Flush"
+                }
+            }
+        }
+        
         public static func > (lhs: PokerHand.Rank, rhs: PokerHand.Rank) -> Bool? {
             if lhs.rankLevel > rhs.rankLevel {
                 return true
