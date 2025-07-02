@@ -50,7 +50,8 @@ extension PokerHand {
             switch self {
             case .highCard(let highCard):
                 return "\(highCard.cards.max(by: { $0.rank < $1.rank })!.rank.longDisplayValue) High"
-            case .onePair: return "a Pair"
+            case .onePair(let pair):
+                return "a Pair of \(pair.pairCard.rank.longDisplayValue)s"
             case .twoPair: return "Two Pair"
             case .threeOfAKind: return "Three of a Kind"
             case .straight: return "a Straight"
