@@ -111,10 +111,10 @@ private extension NoLimitHoldEmHand {
         } else if isFacingStandardBet {
             switch pocketCards.tier {
             case 1, 2:
-                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot(fraction: 1) : .call
                 
             case 3, 4, 5:
-                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.15)) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.15)) ? .raisePot(fraction: 1) : .call
                 
             default:
                 if BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.85)) {
@@ -126,7 +126,7 @@ private extension NoLimitHoldEmHand {
         } else if isFacingBigBet {
             switch pocketCards.tier {
             case 1, 2:
-                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot(fraction: 1) : .call
                 
             case 3, 4, 5:
                 return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .call : .fold
@@ -135,7 +135,7 @@ private extension NoLimitHoldEmHand {
                 if BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.95)) {
                     return .fold
                 } else {
-                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.90)) ? .call : .raisePot
+                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.90)) ? .call : .raisePot(fraction: 1)
                 }
             }
         } else {
@@ -164,22 +164,22 @@ private extension NoLimitHoldEmHand {
         } else if isFacingStandardBet {
             switch bestHand.tier {
             case 1, 2:
-                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot(fraction: 0.6) : .call
                 
             case 3, 4, 5:
-                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.15)) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.15)) ? .raisePot(fraction: 0.6) : .call
                 
             default:
                 if BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.85)) {
                     return .fold
                 } else {
-                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.85)) ? .call : .raise3xBlind
+                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.85)) ? .call : .raisePot(fraction: 0.5)
                 }
             }
         } else if isFacingBigBet {
             switch bestHand.tier {
             case 1, 2:
-                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot : .call
+                return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .raisePot(fraction: 1) : .call
                 
             case 3, 4, 5:
                 return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.80)) ? .call : .fold
@@ -188,7 +188,7 @@ private extension NoLimitHoldEmHand {
                 if BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.95)) {
                     return .fold
                 } else {
-                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.90)) ? .call : .raisePot
+                    return BoolExtensions.random(withProbability: probabilityWeightedByPlayerCount(baseProbability: 0.90)) ? .call : .raisePot(fraction: 0.6)
                 }
             }
         } else {
@@ -226,11 +226,11 @@ private extension NoLimitHoldEmHand {
         guard isFacingNoBet == false else {
             return false
         }
-        return maxOutstandingBet <= blinds.bigBlind * 3
+        return maxOutstandingBet <= totalPotAndBets * 0.75
     }
     
     private var isFacingBigBet: Bool {
-        maxOutstandingBet > blinds.bigBlind * 3
+        maxOutstandingBet > totalPotAndBets * 0.75
     }
     
     private var currentPlayersBestHand: PokerHand? {
@@ -272,7 +272,7 @@ enum AIMove {
     case check
     case call
     case raise3xBlind
-    case raisePot
+    case raisePot(fraction: Double)
     case allIn
     case fold
 }
