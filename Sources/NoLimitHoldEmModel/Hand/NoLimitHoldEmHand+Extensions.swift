@@ -193,7 +193,7 @@ extension NoLimitHoldEmHand {
     
     public var isReadyForDramaticReveal: Bool {
         guard round < .river,
-              state == .waitingToProgressToNextRound
+              state == .waitingToProgressToNextRound || state == .waitingForBigBlind
         else {
             return false
         }
