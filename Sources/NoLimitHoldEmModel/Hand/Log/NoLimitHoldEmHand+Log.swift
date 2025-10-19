@@ -1,7 +1,8 @@
 import Foundation
 
 extension NoLimitHoldEmHand {
-    public struct Log: Codable, Hashable {        
+    // it was a bad idea to try to make this log self-sufficient. lots of repeated data with parent NoLimitHoldEmHand object
+    public struct Log: Codable, Hashable {
         public let handID: String
         public let started: Date
         public let startingPlayerHands: [PlayerHand]

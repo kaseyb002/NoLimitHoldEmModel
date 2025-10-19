@@ -95,7 +95,14 @@ extension NoLimitHoldEmHand {
             }
             
             if playerHand.isAllIn {
-                continue
+                switch state {
+                case .waitingForSmallBlind, .waitingForBigBlind:
+                    state = .waitingForPlayerToAct(playerIndex: index)
+                    return
+
+                case .waitingForPlayerToAct, .waitingToProgressToNextRound, .handComplete:
+                    continue
+                }
             }
             
             if playerHand.hasMovedThisRound == false {
