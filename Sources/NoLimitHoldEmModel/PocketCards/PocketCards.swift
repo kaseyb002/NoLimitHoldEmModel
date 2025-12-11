@@ -1,6 +1,6 @@
 import Foundation
 
-public struct PocketCards: Hashable, Codable {
+public struct PocketCards: Hashable, Codable, Sendable {
     public let first: Card
     public let second: Card
     public var cards: [Card] { [first, second] }

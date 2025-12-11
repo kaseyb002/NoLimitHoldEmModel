@@ -1,7 +1,7 @@
 import Foundation
 
 extension PokerHand {
-    public struct Pair: Hashable, Codable {
+    public struct Pair: Hashable, Codable, Sendable {
         public let pairCard: Card
         public let remainder: [Card]
         

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct RevealedCards: Hashable, Codable {
+public struct RevealedCards: Hashable, Codable, Sendable {
     public let first: Card?
     public let second: Card?
     public var cards: [Card] { [first, second].compactMap(\.self) }

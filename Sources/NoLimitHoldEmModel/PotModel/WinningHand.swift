@@ -1,6 +1,6 @@
 import Foundation
 
-public struct WinningHand: Hashable, Codable {
+public struct WinningHand: Hashable, Codable, Sendable {
     public let playerID: String
     public let pokerHand: PokerHand
     

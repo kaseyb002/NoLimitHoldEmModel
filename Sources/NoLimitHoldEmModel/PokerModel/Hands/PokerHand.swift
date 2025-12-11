@@ -1,6 +1,6 @@
 import Foundation
 
-public struct PokerHand: Hashable, Codable {
+public struct PokerHand: Hashable, Codable, Sendable {
     public let cards: [Card]
     public let topRank: Rank
     public let description: String

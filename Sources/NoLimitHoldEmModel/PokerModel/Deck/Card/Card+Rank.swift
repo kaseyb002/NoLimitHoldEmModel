@@ -1,7 +1,7 @@
 import Foundation
 
 extension Card {
-    public enum Rank: String, Hashable, Identifiable, CaseIterable, Codable {
+    public enum Rank: String, Hashable, Identifiable, CaseIterable, Codable, Sendable {
         case ace = "a"
         case two = "2"
         case three = "3"

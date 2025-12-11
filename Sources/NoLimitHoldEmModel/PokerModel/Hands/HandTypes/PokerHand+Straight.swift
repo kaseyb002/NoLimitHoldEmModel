@@ -1,7 +1,7 @@
 import Foundation
 
 extension PokerHand {
-    public struct Straight: Hashable, Codable {
+    public struct Straight: Hashable, Codable, Sendable {
         public let highCard: Card
         
         init?(cards: [Card]) {

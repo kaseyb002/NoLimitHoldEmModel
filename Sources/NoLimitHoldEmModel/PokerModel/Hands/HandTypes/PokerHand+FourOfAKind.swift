@@ -1,7 +1,7 @@
 import Foundation
 
 extension PokerHand {
-    public struct FourOfAKind: Hashable, Codable {
+    public struct FourOfAKind: Hashable, Codable, Sendable {
         public let fourOfAKind: Card
         public let remainder: Card
         

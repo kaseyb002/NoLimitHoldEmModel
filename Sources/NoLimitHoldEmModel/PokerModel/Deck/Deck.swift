@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Deck: Hashable, Codable {
+public struct Deck: Hashable, Codable, Sendable {
     public var cards: [Card]
     
     public mutating func shuffle() {

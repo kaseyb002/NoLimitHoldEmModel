@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Card: Hashable, Identifiable, Codable {
+public struct Card: Hashable, Identifiable, Codable, Sendable {
     public let rank: Rank
     public let suit: Suit
     

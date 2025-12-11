@@ -1,7 +1,7 @@
 import Foundation
 
 extension PokerHand {
-    public struct Flush: Hashable, Codable {
+    public struct Flush: Hashable, Codable, Sendable {
         /// Sorted highest to lowest value
         public let cards: [Card]
         

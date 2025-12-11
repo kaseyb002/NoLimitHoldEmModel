@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Player: Hashable, Codable {
+public struct Player: Hashable, Codable, Sendable {
     public let id: String
     public var name: String
     public var chipCount: Decimal

@@ -1,6 +1,6 @@
 import Foundation
 
-public enum NoLimitHoldEmHandError: Error {
+public enum NoLimitHoldEmHandError: Error, Sendable {
     case insufficientPlayers
     case blindsNotPosted
     case smallBlindAlreadyPosted

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Blinds: Hashable, Codable, Identifiable {
+public struct Blinds: Hashable, Codable, Identifiable, Sendable {
     public let smallBlind: Decimal
     public let bigBlind: Decimal
     

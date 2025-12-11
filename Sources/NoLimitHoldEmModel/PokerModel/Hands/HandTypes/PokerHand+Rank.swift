@@ -1,7 +1,7 @@
 import Foundation
 
 extension PokerHand {
-    public enum Rank: Hashable, Codable {
+    public enum Rank: Hashable, Codable, Sendable {
         case highCard(HighCard)
         case onePair(Pair)
         case twoPair(TwoPair)

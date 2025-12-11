@@ -1,7 +1,7 @@
 import Foundation
 
 extension Card {
-    public enum Suit: String, Hashable, Identifiable, CaseIterable, Codable {
+    public enum Suit: String, Hashable, Identifiable, CaseIterable, Codable, Sendable {
         case heart = "h"
         case club = "c"
         case diamond = "d"

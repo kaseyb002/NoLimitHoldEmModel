@@ -1,6 +1,6 @@
 import Foundation
 
-public struct NoLimitHoldEmHand: Hashable, Codable, Identifiable {
+public struct NoLimitHoldEmHand: Hashable, Codable, Identifiable, Sendable {
     // MARK: - Initialized Properties
     public let id: String
     public let started: Date
@@ -24,7 +24,7 @@ public struct NoLimitHoldEmHand: Hashable, Codable, Identifiable {
     // MARK: - Config
     public var autoProgress: AutoProgressConfig = .init()
     
-    public enum State: Hashable, Codable {
+    public enum State: Hashable, Codable, Sendable {
         case waitingForSmallBlind
         case waitingForBigBlind
         case waitingForPlayerToAct(playerIndex: Int)
@@ -32,7 +32,7 @@ public struct NoLimitHoldEmHand: Hashable, Codable, Identifiable {
         case handComplete
     }
     
-    public struct AutoProgressConfig: Hashable, Codable {
+    public struct AutoProgressConfig: Hashable, Codable, Sendable {
         public var autoMoveToNextRound: Bool = true
     }
 }

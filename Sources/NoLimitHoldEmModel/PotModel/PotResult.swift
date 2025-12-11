@@ -1,6 +1,6 @@
 import Foundation
 
-public struct PotResult: Hashable, Codable {
+public struct PotResult: Hashable, Codable, Sendable {
     public let pot: Pot
     public let winningHands: Set<WinningHand>
     

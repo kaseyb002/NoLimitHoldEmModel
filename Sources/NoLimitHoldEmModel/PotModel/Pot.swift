@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Pot: Hashable, Identifiable, Codable {
+public struct Pot: Hashable, Identifiable, Codable, Sendable {
     public let id: String
     public var amount: Decimal
     public var isFull: Bool = false

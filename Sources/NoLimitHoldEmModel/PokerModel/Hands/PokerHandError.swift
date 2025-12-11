@@ -1,5 +1,5 @@
 import Foundation
 
-public enum PokerHandError: Error {
+public enum PokerHandError: Error, Sendable {
     case not5Cards
 }

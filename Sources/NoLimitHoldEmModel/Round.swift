@@ -1,7 +1,7 @@
 import Foundation
 
 extension NoLimitHoldEmHand {
-    public enum Round: Int, Hashable, Comparable, Codable {
+    public enum Round: Int, Hashable, Comparable, Codable, Sendable {
         case preflop
         case flop
         case turn

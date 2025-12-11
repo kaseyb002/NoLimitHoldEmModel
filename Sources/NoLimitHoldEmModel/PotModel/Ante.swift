@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Ante: Codable, Hashable, RawRepresentable {
+public struct Ante: Codable, Hashable, RawRepresentable, Sendable {
     public let rawValue: Decimal
     
     public typealias RawValue = Decimal

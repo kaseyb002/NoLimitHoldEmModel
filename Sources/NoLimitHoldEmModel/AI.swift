@@ -268,7 +268,7 @@ private extension NoLimitHoldEmHand {
     }
 }
 
-enum AIMove {
+enum AIMove: Sendable {
     case check
     case call
     case raise3xBlind

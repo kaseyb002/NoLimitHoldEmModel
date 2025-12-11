@@ -1,6 +1,6 @@
 import Foundation
 
-public struct PlayerHand: Codable, Hashable {
+public struct PlayerHand: Codable, Hashable, Sendable {
     public var player: Player
     public let startingChipCount: Decimal
     public var hasMovedThisRound: Bool = false
@@ -9,7 +9,7 @@ public struct PlayerHand: Codable, Hashable {
     public var revealedCards: RevealedCards
     public var isAllIn: Bool { player.chipCount  == .zero }
     
-    public enum Status: String, Hashable, Codable {
+    public enum Status: String, Hashable, Codable, Sendable {
         case `in`, `out`
     }
     

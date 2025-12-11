@@ -2,7 +2,7 @@ import Foundation
 
 extension NoLimitHoldEmHand {
     // it was a bad idea to try to make this log self-sufficient. lots of repeated data with parent NoLimitHoldEmHand object
-    public struct Log: Codable, Hashable {
+    public struct Log: Codable, Hashable, Sendable {
         public let handID: String
         public let started: Date
         public let startingPlayerHands: [PlayerHand]
@@ -24,7 +24,7 @@ extension NoLimitHoldEmHand {
         }
         
         // MARK: - Action Groups
-        public struct Actions: Codable, Hashable {
+        public struct Actions: Codable, Hashable, Sendable {
             public internal(set) var preflopActions: [PlayerAction] = []
             public internal(set) var flopActions: [PlayerAction] = []
             public internal(set) var turnActions: [PlayerAction] = []
@@ -44,7 +44,7 @@ extension NoLimitHoldEmHand {
         }
         
         // MARK: - PlayerAction Type
-        public struct PlayerAction: Codable, Hashable {
+        public struct PlayerAction: Codable, Hashable, Sendable {
             public let playerID: String
             public let decision: Decision
             public let timestamp: Date
@@ -55,7 +55,7 @@ extension NoLimitHoldEmHand {
                 case timestamp
             }
             
-            public enum Decision: Codable, Hashable {
+            public enum Decision: Codable, Hashable, Sendable {
                 case postSmallBlind(amount: Decimal)
                 case postBigBlind(amount: Decimal)
                 case fold
@@ -81,7 +81,7 @@ extension NoLimitHoldEmHand {
         }
         
         // MARK: - Results Type
-        public struct Results: Codable, Hashable {
+        public struct Results: Codable, Hashable, Sendable {
             public let pots: [Pot]
             public let potWinners: [PotResult]
             public let ended: Date
